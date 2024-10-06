@@ -1,0 +1,66 @@
+.contact-card {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.contact-card:hover {
+    background-color: #f9f9f9;
+}
+
+.avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.contact-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+}
+
+.contact-card__info {
+    text-align: start;
+    margin: 0;
+    padding: 0;
+
+}
+
+.contact-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.contact-name {
+    font-weight: bold;
+    font-size: 16px;
+    color: #007bff;
+    margin-left: 0;
+}
+
+.unread-messages-count {
+    background-color: #00aeff;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 10px;
+    display: inline-block;
+    margin-top: 5px;
+    align-self: flex-start;
+}

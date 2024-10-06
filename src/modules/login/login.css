@@ -1,0 +1,10 @@
+.login {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-content: space-between;
+}
+
+.login__footer {
+    margin-top: 45px;
+}

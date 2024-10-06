@@ -1,0 +1,13 @@
+.message-time {
+    font-size: 12px;
+    opacity: 0.7;
+    position: absolute;
+    color:#F1F1F1;
+    right: 10px;
+    bottom: 5px;
+}
+
+.card-time {
+    font-size: 12px;
+    color: #999;
+}

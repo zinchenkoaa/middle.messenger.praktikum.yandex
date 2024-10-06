@@ -1,0 +1,16 @@
+.last-message {
+    font-size: 14px;
+    color: #666;
+    margin: 0;
+    margin-bottom: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.message-text {
+    margin: 0;
+    word-wrap: break-word;
+    color: #ffffff;
+    text-align: start;
+}

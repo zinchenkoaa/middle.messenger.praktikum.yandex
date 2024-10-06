@@ -3,21 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{{title}}</title>
-    <link rel="stylesheet" href="./styles/main.css" />
+    <title>Sparkit</title>
   </head>
   <body>
-    <div id="app">
-      {{> header}}
-      
-      <main>
-        <div id="chat-container">
-          <div id="messages"></div>
-          <input type="text" id="message-input" placeholder="Type your message">
-          <button id="send-button">Send</button>
-        </div>
-      </main>
-      <!-- <script type="module" src="./scripts/main.ts"></script> -->
-    </div>
+    <div id="root"></div>
+    <script src="./index.ts" type="module"></script>
   </body>
 </html>

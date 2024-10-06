@@ -1,0 +1,38 @@
+.ava {
+    display: block;
+    position: relative;
+    margin: 0 auto;
+    width: 130px;
+    height: 130px;
+    border-radius: 100%;
+}
+
+.ava-img {
+    width: 100%;
+    height: 100%;
+}
+
+.ava-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    border-radius: 100%;
+    background: #000000;
+    font-size: 13px;
+    line-height: 14px;
+    color: #FFFFFF;
+    padding: 25px;
+    text-align: center;
+    cursor: pointer;
+    opacity: 0;
+    transition: 0.5s all;
+
+    &:hover {
+        opacity: 0.5;
+    }
+}
