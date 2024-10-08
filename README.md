@@ -11,6 +11,7 @@ npm run start
 npm run build
 
 Страницы: 
+
 / 
 /registration 
 /chat
