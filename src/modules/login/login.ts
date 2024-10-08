@@ -11,7 +11,7 @@ const loginHtml = `
                 {{{ passwordInput }}}
             </div>
 
-            <div class="login__footer">
+            <div class="login-footer">
                 {{{ button }}}
 
                 {{{ link }}}

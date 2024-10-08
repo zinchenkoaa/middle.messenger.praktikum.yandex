@@ -1,8 +1,8 @@
 {
   "extends": "stylelint-config-standard",
   "rules": {
-    "indentation": 2,
-    "string-quotes": "double",
-    "color-hex-case": "lower"
+    "color-hex-length": "short", 
+    "function-url-quotes": "always",    
+    "selector-attribute-quotes": "always"
   }
 }

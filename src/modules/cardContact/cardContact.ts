@@ -10,7 +10,7 @@ const cardContactHtml = `
 
     <div class="contact-info">
         <div class="contact-header">
-            <div class="contact-card__info">
+            <div class="contact-card-info">
                 <span class="contact-name">{{ contactName }}</span>
 
                 {{#if message}}
