@@ -1,6 +1,6 @@
 Sparkit messanger
 
-Netlify - [https://app.netlify.com/sites/sparkit-messanger]
+Netlify - [https://sparkit-messanger.netlify.app]
 
 Макет проекта за основу взят макет Яндекс Практикум: https://www.figma.com/file/X9BGH23POw0LJj99qr6Sl8/messenger
 
