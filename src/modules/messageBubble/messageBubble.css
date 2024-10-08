@@ -14,7 +14,7 @@
 }
 
 .message-bubble {
-    background-color: #0088cc;
+    background-color: #08c;
     color: white;
     padding: 10px 15px;
     border-radius: 20px;
@@ -25,11 +25,11 @@
 }
 
 .from-user .message-bubble {
-    background-color: #0088cc;
+    background-color: #08c;
     border-bottom-left-radius: 0;
 }
 
 .from-other .message-bubble {
-    background-color: #00aaff;
+    background-color: #0af;
     border-bottom-right-radius: 0;
 }

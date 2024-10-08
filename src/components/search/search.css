@@ -1,7 +1,7 @@
 .wrapper-search {
     display: flex;
     justify-content: center;
-    color: #999999;
+    color: #999;
     margin-top: 10px;
 }
 
@@ -15,7 +15,7 @@ input {
     font-size: 12px;
 
     &::placeholder {
-        color: #999999;
+        color: #999;
         opacity: 1;
     }
 
@@ -42,7 +42,7 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 p {
-    color: #999999;
+    color: #999;
     font-size: 12px;
     font-weight: 500;
 }

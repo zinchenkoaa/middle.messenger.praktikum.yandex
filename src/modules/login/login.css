@@ -1,8 +1,7 @@
 .login {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    align-content: space-between;
+    place-content: space-between space-between;
 }
 
 .login__footer {

@@ -4,14 +4,14 @@
     align-items: center;
     width: 100vw;
     height: 100vh;
-    background: #FFFFFF;
+    background: #FFF;
 }
 
 .home-container {
-    background: #FFFFFF;
-    box-shadow: 0px 0px 6px 0px #00000024;
+    background: #FFF;
+    box-shadow: 0 0 6px 0 #00000024;
     border-radius: 12px;
-    padding: 50px 30px 50px 30px;
+    padding: 50px 30px;
 }
 
 .home-header {
