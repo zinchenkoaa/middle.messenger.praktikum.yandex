@@ -7,7 +7,7 @@ import { Header } from "../../components/header/header";
 import { Avatar } from "../../components/avatar";
 
 const profileHtml =     `
-<div class="profile">
+<main class="profile">
     <div class="profile-wrapper">
         <div class="profile-content">
             <div class="profile-content-container">
@@ -21,7 +21,7 @@ const profileHtml =     `
             </div>
         </div>
     </div>
-</div>
+</main>
 `;
 
 export function profile(inner = "profileView") {

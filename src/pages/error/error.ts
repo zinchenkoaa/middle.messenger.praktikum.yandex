@@ -2,17 +2,19 @@ import Handlebars from "handlebars";
 import "./error.css";
 
 const errorHtml =     `
-<div class="error">
+<main class="error">
     <div class="error-code">
         {{ errorCode }}
     </div>
+
     <div class="error-text">
         {{ errorText }}
     </div>
+    
     <div class="error-link">
         <a href="/chat">Назад к чатам</a>
     </div>
-</div>
+</main>
 `;
 
 export function error(errorCode: string) {

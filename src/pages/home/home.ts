@@ -9,9 +9,11 @@ const homeHtml = `
     <div class="home-container">
         {{{ header }}}
 
-        <form>
-            {{{ content }}}
-         </form>
+        <main>
+            <form>
+                {{{ content }}}
+            </form>
+         </main>
     </div>
 </div>
 `;

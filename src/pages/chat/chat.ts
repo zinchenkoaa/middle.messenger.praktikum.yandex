@@ -7,7 +7,7 @@ import { MessageInput } from "../../modules/messageInput";
 import { ContactContainer } from "../../modules/contactContainer";
 
 const chatHtml = `
-<div class="chat">
+<main class="chat">
     <div class="left-panel">
         {{{ link }}}
 
@@ -25,7 +25,7 @@ const chatHtml = `
 
         {{{ messageInput }}}
     </div>
-</div>
+</main>
 `;
 
 export function chat() {
