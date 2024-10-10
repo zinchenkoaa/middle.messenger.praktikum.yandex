@@ -1,3 +1,8 @@
 {
-  "extends": "stylelint-config-standard"
+  "extends": "stylelint-config-standard",
+  "rules": {
+    "color-hex-length": "short", 
+    "function-url-quotes": "always",    
+    "selector-attribute-quotes": "always"
+  }
 }

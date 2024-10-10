@@ -1,12 +1,13 @@
-import { defineConfig } from 'vite';
+import { defineConfig, PluginOption } from 'vite';
+import { resolve, dirname } from 'path';
 
 export default defineConfig({
-  root: 'src',
+  root: resolve(__dirname, 'src'),
   server: {
     port: 3000
   },
   build: {
-    outDir: '../dist',
+    outDir: resolve(__dirname, 'dist'),
     emptyOutDir: true
   }
 });

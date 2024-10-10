@@ -1,0 +1,11 @@
+.link-wrapper {
+    margin-top: 14px;
+}
+
+.link {
+    display: block;
+    text-align: center;
+    font-size: 11px;
+    line-height: 11px;
+    color: #3369F3;
+}
