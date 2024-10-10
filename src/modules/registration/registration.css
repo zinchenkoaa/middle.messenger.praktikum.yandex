@@ -1,0 +1,9 @@
+.registration {
+    display: flex;
+    flex-direction: column;
+    place-content: space-between space-between;
+}
+
+.registration-footer {
+    margin-top: 45px;
+}

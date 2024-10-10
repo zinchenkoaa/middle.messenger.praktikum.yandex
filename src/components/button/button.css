@@ -1,0 +1,50 @@
+.button {
+    background-color: #3369F3;
+    border-radius: 8px;
+    border-width: unset;
+    border-color: #3369F3;
+    border-style: unset;
+    font-size: 14px;
+    color: #fff;
+    width: 280px;
+    height: 37px;
+    cursor: pointer;
+
+
+    &:hover {
+        background-color: #6892FAFF;
+    }
+}
+
+.emoji-btn, .image-btn, .send-btn {
+    background-color: transparent;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    margin: 0 5px;
+}
+
+.emoji-btn, .image-btn:hover {
+    color: #007bff;
+}
+
+.send-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #08c;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.send-btn svg {
+    width: 20px;
+    height: 20px;
+    color: #f9f9f9;
+}
+
+.send-btn:hover {
+    background-color: #007bb5;
+}

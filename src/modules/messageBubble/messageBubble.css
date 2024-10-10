@@ -1,0 +1,35 @@
+.message-container {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.from-user {
+    margin: 10px 10px 0 0;
+    justify-content: flex-end;
+}
+
+.from-other {
+    margin: 10px 0 0 10px;
+    justify-content: flex-start;
+}
+
+.message-bubble {
+    background-color: #08c;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 20px;
+    max-width: 70%;
+    min-width: 300px;
+    position: relative;
+    display: inline-block;
+}
+
+.from-user .message-bubble {
+    background-color: #08c;
+    border-bottom-left-radius: 0;
+}
+
+.from-other .message-bubble {
+    background-color: #0af;
+    border-bottom-right-radius: 0;
+}

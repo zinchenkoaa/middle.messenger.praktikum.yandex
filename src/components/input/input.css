@@ -1,0 +1,38 @@
+.input-label {
+    color: #999;
+    font-size: 9px;
+    font-weight: 500;
+}
+
+.input-type {
+    position: relative;
+    width: 100%;
+    border: none;
+    color: black;
+    background-color: transparent;
+    border-width: 0;
+    border-bottom: 1px solid #3369F3;
+    text-align: start;
+}
+
+.input-type:focus {
+    outline: none;
+}
+
+.input-error-message {
+    color: red;
+    margin-top: 7px;
+    font-size: 8px;
+    line-height: 8px;
+}
+
+.message-field {
+    flex: 1; 
+    padding: 10px;
+    border: none;
+    outline: none;
+    border-radius: 20px;
+    margin: 0 10px;
+    font-size: 16px;
+    box-sizing: border-box;
+}

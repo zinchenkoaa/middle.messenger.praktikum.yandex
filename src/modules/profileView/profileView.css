@@ -1,0 +1,15 @@
+.profile-view-links {
+    margin-top: 20px;
+}
+
+.profile-view-link {
+    padding: 10px 0;
+}
+
+.profile-view-link-logout {
+    border-bottom: none;
+
+    a {
+        color: red;
+    }
+}
