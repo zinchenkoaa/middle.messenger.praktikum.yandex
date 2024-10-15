@@ -8,7 +8,7 @@ import { Block } from "../../utils/block";
 export class MessageInput extends Block {
     constructor() {
         super({
-            sendInput: new Input({ type: "text", className: "message-field", placeholder: "Введите сообщение..." }),
+            sendInput: new Input({ type: "text", name: "message", className: "message-field", placeholder: "Введите сообщение..." }),
             imageButton: new Button({ className: "image-btn", label: "📷" }),
   sendButton: new Button({ className: "send-btn", label: `<img src="${send}" />` }),
   emojiButton:  new Button({ className: "emoji-btn", label: "😊" })
