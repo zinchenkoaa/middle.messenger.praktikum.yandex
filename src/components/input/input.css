@@ -10,13 +10,19 @@
     border: none;
     color: black;
     background-color: transparent;
-    border-width: 0;
     border-bottom: 1px solid #3369F3;
+    box-sizing: border-box;
+    padding: 0;
     text-align: start;
 }
 
 .input-type:focus {
     outline: none;
+    padding: 0;
+}
+
+.input-type::-webkit-input-placeholder {
+    padding-left: 0;
 }
 
 .input-error-message {

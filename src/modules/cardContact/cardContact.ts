@@ -1,7 +1,7 @@
-import Handlebars from "handlebars";
 import "./cardContact.css";
 import { Message } from "../../components/message";
 import { Time } from "../../components/time";
+import { Block } from "../../utils/block";
 
 const cardContactHtml = `
 <div class="contact-card">
@@ -13,8 +13,8 @@ const cardContactHtml = `
             <div class="contact-card-info">
                 <span class="contact-name">{{ contactName }}</span>
 
-                {{#if message}}
-                    {{{ message }}}
+                {{#if messageInit}}
+                    {{{ messageInit }}}
                 {{/if}}
             </div>
 
@@ -32,25 +32,22 @@ const cardContactHtml = `
 
 interface CardContactProps {
     contactName: string; 
-    message?: string; 
     contactMessageCount?: string; 
     contactLastMessageTime: string; 
+    message?: string;
+    messageInit?: Message;
+    contactTime?: Time
 }
 
-export function CardContact({
-    contactName, 
-    message, 
-    contactMessageCount, 
-    contactLastMessageTime}: CardContactProps) {
-    const tmpl = Handlebars.compile(cardContactHtml);
-
-    const context = {
-        contactName, 
-        message: Message({ textMessage: message || '' }), 
-        contactMessageCount, 
-        contactLastMessageTime,
-        contactTime: Time({ time: contactLastMessageTime, className: "card-time" })
+export class CardContact extends Block<CardContactProps> {
+    constructor(props: CardContactProps) {
+        super({...props,
+            messageInit: new Message({ textMessage: props.message ?? '', className: "last-message" }),
+            contactTime: new Time({ time: props.contactLastMessageTime, className: "card-time" }),
+        })
     }
 
-    return tmpl(context);
+    protected render(): string {
+        return cardContactHtml;
+    }
 }

@@ -18,10 +18,14 @@
 
 .emoji-btn, .image-btn, .send-btn {
     background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border: none;
+    width: auto;
     font-size: 20px;
     cursor: pointer;
-    margin: 0 5px;
+    margin: 5px 5px;
 }
 
 .emoji-btn, .image-btn:hover {

@@ -1,71 +1,73 @@
-import Handlebars from "handlebars";
 import "./profileView.css";
 import { Input } from "../../components/input";
+import { Form } from "../../components/form";
+import profileViewHtml from "./profileView.tmpl"
+import { Block } from "../../utils/block";
+import { Avatar } from "../../components/avatar";
+import { Header } from "../../components/header/header";
 
-const profileViewHtml =     `
-<div class="profile-view">
-    {{{ mailInput }}}
-    {{{ loginInput }}}
-    {{{ firstNameInput }}}
-    {{{ secondNameInput }}}
-    {{{ displayNameInput }}}
-    {{{ phoneInput }}}
-</div>
+export class ProfileView extends Block {
+  constructor() {
+    super({
+      avatar: new Avatar({}),
 
-<div class="profile-view-links">
-    <div class="profile-view-link"><a href="/profile-edit">Изменить данные</a></div>
-    <div class="profile-view-link"><a href="/password-edit">Изменить пароль</a></div>
-    <div class="profile-view-link profile-view-linklogout"><a href="/">Выйти</a></div>
-</div>
-`;
+     header: new Header({
+        className: "home-header", title: "Данные профиля"
+    }),
+      mailInput: new Input({
+          name: "email",
+          text: "Почта",
+          required: true,
+          className: "input-type",
+          value: "test@yandex.ru",
+          type: "email",
+          disabled: true,
+      }),
+      loginInput: new Input({
+        name: "login",
+        text: "Логин",
+        className: "input-type",
+        required: true,
+        value: "testtestovich",
+        disabled: true,
+      }),
+      secondNameInput: new Input({
+        name: "second_name",
+        className: "input-type",
+        text: "Фамилия",
+        value: "Тестович",
+        disabled: true,
+      }),
+      phoneInput: new Input({
+        name: "phone",
+        text: "Телефон",
+        className: "input-type",
+        value: "+7 (999) 999 99 99",
+        type: "tel",
+        required: true,
+        disabled: true,
+      }),
+      displayNameInput: new Input({
+        name: "display_name",
+        text: "Имя в чате",
+        className: "input-type",
+        value: "Тестович",
+        required: true,
+        disabled: true,
+      }),
+    })
+  }
 
-export function profileView() {
-    const tmpl = Handlebars.compile(profileViewHtml);
-    
-    const context = {
-        mailInput: Input({
-            name: "email",
-            text: "Почта",
-            value: "test@yandex.ru",
-            required: true,
-            disabled: true,
-            type: "email",
-        }),
-        loginInput: Input({
-            name: "login",
-            text: "Логин",
-            value: "testtestovich",
-            required: true,
-            disabled: true,
-        }),
-        firstNameInput: Input({
-            name: "first_name",
-            text: "Имя",
-            value: "Тест",
-            required: true,
-            disabled: true,
-        }),
-        secondNameInput: Input({
-            name: "second_name",
-            text: "Фамилия",
-            value: "Тестович",
-            disabled: true,
-        }),
-        displayNameInput: Input({
-            name: "display_name",
-            text: "Имя в чате",
-            value: "Тестович",
-            disabled: true,
-        }),
-        phoneInput: Input({
-            name: "phone",
-            text: "Телефон",
-            value: "+7 (999) 999 99 99",
-            type: "tel",
-            required: true,
-            disabled: true,
-        })
-    };
+  override  render(): string {
+    const form = new Form({
+        name: "formProfileView",
+        header: `{{{ header }}}`,
+        body: profileViewHtml,
+        settings: {
+            withInternalID: true
+        }
+    });
 
-    return tmpl(context);
+    return form.render(); 
+  }
 }

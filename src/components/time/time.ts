@@ -1,21 +1,19 @@
-import Handlebars from "handlebars";
 import "./time.css";
+import timeHtml from "./time.tmpl"
+import type { Props } from "../../types";
+import { Block } from "../../utils/block";
 
-const timeHtml = `
-<span class="{{ className }}">{{ time }}</span>
-`;
-
-interface TimeProps {
+interface TimeProps extends Props {
     className?: string;
     time: string;
 }
 
-export function Time({ className = "message-time", time }: TimeProps) {
-    const tmpl = Handlebars.compile(timeHtml);
+export class Time extends Block {
+    constructor(props: TimeProps) {
+        super(props);
+    }
 
-    const context = {
-        className, time
-    };
-
-    return tmpl(context);
+    render(): string {
+        return timeHtml;
+    }
 }

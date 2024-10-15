@@ -1,22 +1,18 @@
-import Handlebars from "handlebars";
 import "./search.css";
+import linkHtml from "./search.tmpl"
+import type { Props } from "../../types";
+import { Block } from "../../utils/block";
 
-const linkHtml = `
-<div class="wrapper-search">
-    <input type="search" placeholder={{ placeholder }}>
-</div>
-`;
-
-interface SearchProps {
+interface SearchProps extends Props {
     placeholder: string;
 }
 
-export function Search({
-    placeholder,
-}: SearchProps) {
-    const template = linkHtml;
-    const tmpl = Handlebars.compile(template);
-    const context = { placeholder };
+export class Search extends Block {
+    constructor(props: SearchProps) {
+        super(props);
+    }
 
-    return tmpl(context);
+    render(): string {
+      return linkHtml; 
+    }
 }

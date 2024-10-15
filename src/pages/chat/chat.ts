@@ -1,45 +1,26 @@
-import Handlebars from "handlebars";
 import "./chat.css";
 import { Link } from "../../components/link";
 import { Search } from "../../components/search";
 import { MessageBubble } from "../../modules/messageBubble";
 import { MessageInput } from "../../modules/messageInput";
 import { ContactContainer } from "../../modules/contactContainer";
+import chatHtml from "./chat.tmpl";
+import { Block } from "../../utils/block";
 
-const chatHtml = `
-<main class="chat">
-    <div class="left-panel">
-        {{{ link }}}
-
-        {{{ search }}}
-
-        {{{ contactContainer }}}
-    </div>
-
-    <div class="all-message">
-        <div class="container">
-            {{{ messageBubbleOne }}}
-            {{{ messageBubbleTwo }}}
-            {{{ messageBubbleThree }}}
-        </div>
-
-        {{{ messageInput }}}
-    </div>
-</main>
-`;
-
-export function chat() {
-
-    const tmpl = Handlebars.compile(chatHtml);
-    const context = {
-        link: Link({ href: "/profile", text: "Профиль"}),
-        search: Search({ placeholder: "Поиск" }),
-        messageBubbleOne: MessageBubble({ textMessage: "Привет! Как дела?", isUser: false }),
-        messageBubbleTwo: MessageBubble({ textMessage: "Привет! Всё хорошо. Как у тебя?", isUser: true }),
-        messageBubbleThree: MessageBubble({ textMessage: "Что не отвечаешь?", isUser: true }),
-        messageInput: MessageInput,
-        contactContainer: ContactContainer,
+export class Chat extends Block  {
+    constructor() {
+        super({
+            link: new Link({ href: "/profile", text: "Профиль" }),
+            search: new Search({ placeholder: "Поиск" }),
+            messageBubbleOne: new MessageBubble({ textMessage: "Привет! Как дела?", className: "message-text", isUser: false }),
+            messageBubbleTwo: new MessageBubble({ textMessage: "Привет! Всё хорошо. Как у тебя?", className: "message-text", isUser: true }),
+            messageBubbleThree: new MessageBubble({ textMessage: "Что не отвечаешь?", className: "message-text", isUser: true }),
+            messageInput: new MessageInput(),
+            contactContainer: new ContactContainer()
+        })
     }
 
-    return tmpl(context);
+    override render(): string {
+        return chatHtml
+    }
 }

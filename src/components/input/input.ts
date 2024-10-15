@@ -1,35 +1,9 @@
-import Handlebars from "handlebars";
+import { Block } from "../../utils/block";
+import inputHtml from "./input.tmpl"
 import "./input.css";
+import type { Props } from "../../types";
 
-const inputHtml = `
-    {{#if text }}
-        <label for="{{ name }}" class="input-label">{{ text }}</label>
-    {{/if}}
-
-    <input 
-        type="{{ type }}" 
-        name="{{ name }}" 
-        class={{ className }}
-        {{#if value}}
-            value = "{{ value }}"
-        {{/if}}
-
-        {{#if placeholder}}
-            placeholder="{{ placeholder }}"
-        {{/if}}
-
-        {{#if disabled}}
-            disabled
-        {{/if}}
-
-        required={{ required }} />
-
-        {{#if errorMessage}}
-            <div class="input-error-message hide">{{ errorMessage }}</div>
-        {{/if}}
-`;
-
-interface InputProps {
+interface InputProps extends Props {
     name?: string;
     text?: string;
     type?: string;
@@ -39,23 +13,18 @@ interface InputProps {
     required?: boolean;
     disabled?: boolean;
     errorMessage?: string;
-}
+    validationType?: string;
+    isProfile?: boolean;
+  }
+  
+  export class Input extends Block {
+    constructor(props: InputProps) {
+      super(props);
+    }
+  
+    override render(): string {
 
-export function Input({
-    name,
-    text,
-    type = "text",
-    placeholder,
-    value,
-    required = false,
-    disabled = false,
-    className = "input-type",
-    errorMessage,
-}: InputProps) {
 
-    const template = inputHtml;
-    const tmpl = Handlebars.compile(template);
-    const context = { name, text, type, className, required, value, disabled, errorMessage, placeholder };
-
-    return tmpl(context);
+      return inputHtml;
+    }
 }

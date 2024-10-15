@@ -1,0 +1,10 @@
+:root {
+    --primary-color: #29c188;
+    --secondary-color: #46c2f5;
+    --complementary-color: #ffde6c;
+    --light-color: #999;
+    --error-color: #ff2f2f;
+    --bg-color-light: #fbfbfb;
+    --bg-color-dark: #efefef;
+    --primary-font-family: "Inter", sans-serif;
+  }
