@@ -1,1 +1,1 @@
-export { CardContact } from './cardContact.ts'
+export { CardContact } from './cardContact'
