@@ -1,22 +1,12 @@
 import "./contactContainer.css";
 import { CardContact } from "../../modules/cardContact";
 import { Block } from "../../utils/block";
+import contactContainerHtml from "./contactContainer.tmpl";
 
-const contactContainerHtml: string = `
-<div class="contact-container">
-    {{{ contactOne }}}
-    {{{ contactTwo }}}
-    {{{ contactThree }}}
-    {{{ contactFour }}}
-    {{{ contactFive }}}
-    {{{ contactSix }}}
-    {{{ contactSeven }}}
-</div>
-`;
-
-export class ContactContainer extends Block {
+export class ContactContainer extends Block<Record<string, unknown>> {
     constructor() {
-        super({contactOne: new CardContact({
+        super({
+        contactOne: new CardContact({
             contactName: "Иван Иванов", 
             message: "Привет! Как дела?", 
             contactMessageCount: "5", 

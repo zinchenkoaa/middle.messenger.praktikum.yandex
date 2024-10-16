@@ -20,8 +20,9 @@ export default `
         {{/if}}
 
         required
+        {{#if disabled}}
+        disabled
+        {{/if}}
      />
-
-    <div class="input-error-message show">{{{ errorMessage }}}</div>
     </div>
 `

@@ -5,14 +5,27 @@ import { Input } from "../../components/input";
 import messageInputHtml from "./messageInput.tmpl";
 import { Block } from "../../utils/block";
 
-export class MessageInput extends Block {
+export class MessageInput extends Block<Record<string, unknown>> {
     constructor() {
         super({
-            sendInput: new Input({ type: "text", name: "message", className: "message-field", placeholder: "Введите сообщение..." }),
-            imageButton: new Button({ className: "image-btn", label: "📷" }),
-  sendButton: new Button({ className: "send-btn", label: `<img src="${send}" />` }),
-  emojiButton:  new Button({ className: "emoji-btn", label: "😊" })
-
+            sendInput: new Input({ 
+                type: "text", 
+                name: "message", 
+                className: "message-field", 
+                placeholder: "Введите сообщение..." 
+            }),
+            imageButton: new Button({ 
+                className: "image-btn", 
+                label: "📷" 
+            }),
+            sendButton: new Button({ 
+                className: "send-btn", 
+                label: `<img src="${send}" />` 
+            }),
+            emojiButton:  new Button({ 
+                className: "emoji-btn", 
+                label: "😊" 
+            })
         })
     }
 

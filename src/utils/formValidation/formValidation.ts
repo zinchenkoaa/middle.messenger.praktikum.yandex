@@ -68,16 +68,17 @@ export const formValidation = (event: Event | null): void => {
 };
 
 const renderErrorBlock = (target: HTMLElement, result: ResultObject): void => {
-const errorBlock = (target.parentNode as HTMLElement).querySelector(".error-message");
-if (errorBlock != null) {
-    if (result.isValid === false) {
-    errorBlock.classList.remove("hide");
-    errorBlock.textContent = result.errorMessage;
-    } else {
-    errorBlock.classList.add("hide");
-    errorBlock.textContent = "";
+    const errorBlock = (target.parentNode as HTMLElement).querySelector(".error-message");
+
+    if (errorBlock != null) {
+        if (result.isValid === false) {
+        errorBlock.classList.remove("hide");
+        errorBlock.textContent = result.errorMessage;
+        } else {
+        errorBlock.classList.add("hide");
+        errorBlock.textContent = "";
+        }
     }
-}
 };
 
 const toggleClass = (target: HTMLElement, result: ResultObject): void => {
@@ -85,8 +86,9 @@ target.classList.add((result.isValid) ? "valid" : "invalid");
 };
 
 const applyResult = (target: HTMLElement, result: ResultObject): void => {
-renderErrorBlock(target, result);
-toggleClass(target, result);
+    renderErrorBlock(target, result);
+    toggleClass(target, result);
+
 };
 
 const checkMaxLength = (length: number, maxLength: number): string | false => {
@@ -152,7 +154,7 @@ export const checkPasswordValidaty = (value: string = ""): ResultObject => {
     return checker(checkList);
 };
 
-const checkLoginValidaty = (value: string = ""): ResultObject => {
+export const checkLoginValidaty = (value: string = ""): ResultObject => {
     const rules: Rules = {
         symbols: "!@_.",
         minLength: 4,
@@ -161,7 +163,7 @@ const checkLoginValidaty = (value: string = ""): ResultObject => {
     rules.pattern = new RegExp(`^[0-9a-zA-Z${rules.symbols}]{${rules.minLength},${rules.maxLength}}$`, "g");
 
     const checkList: Array<string | boolean> = [
-        checkPattern(value, rules.pattern, `Поле может содержать только буквы латинского алфавита, цифры и символы ${rules.symbols}`),
+        checkPattern(value, rules.pattern, `Поле может содержать только буквы латинского алфавита,<br/> цифры и символы ${rules.symbols}`),
         checkMaxLength(value.length, rules.maxLength),
         checkMinLength(value.length, rules.minLength)
     ];
@@ -169,7 +171,7 @@ const checkLoginValidaty = (value: string = ""): ResultObject => {
     return checker(checkList);
 };
 
-const checkEmailValidaty = (value: string = ""): ResultObject => {
+export const checkEmailValidaty = (value: string = ""): ResultObject => {
     const rules: Rules = {
         symbols: "",
         minLength: 5,
@@ -186,7 +188,7 @@ const checkEmailValidaty = (value: string = ""): ResultObject => {
     return checker(checkList);
 };
 
-const checkNameValidaty = (value: string = ""): ResultObject => {
+export const checkNameValidaty = (value: string = ""): ResultObject => {
     const rules: Rules = {
         symbols: "",
         minLength: 2,
@@ -203,7 +205,7 @@ const checkNameValidaty = (value: string = ""): ResultObject => {
     return checker(checkList);
 };
 
-const checkPhoneValidaty = (value: string = ""): ResultObject => {
+export const checkPhoneValidaty = (value: string = ""): ResultObject => {
     const rules: Rules = {
         symbols: "",
         minLength: 10,

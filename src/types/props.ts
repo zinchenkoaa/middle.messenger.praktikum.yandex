@@ -5,18 +5,23 @@ export type Props = {
     text?: string;
     label?: string;
     type?: string;
-    id?: string
+    id?: string;
+    time?: string;
     validationType?: string;
     required?: boolean;
     value?: string;
     disabled?: boolean;
     errorMessage?: string;
     novalidate?: true;
+    placeholder?: string;
     events?: {
         [key: string]: (event: Event) => void;
     };
     settings?: {
         withInternalID: boolean;
     };
-    attr?: Record<string, string>;
 } & Record<string, unknown>;
+
+export interface AllFormData {
+    [key: string]: string;
+  }

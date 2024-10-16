@@ -1,13 +1,12 @@
 import "./avatar.css";
 import avatarHtml from "./avatar.tmpl";
-import type { Props } from "../../types";
 import { Block } from "../../utils/block";
 
-interface AvatarProps extends Props {
+type AvatarProps = {
     changeAva?: boolean;
-}
+} & Record<string, unknown>
 
-export class Avatar extends Block {
+export class Avatar extends Block<AvatarProps> {
     constructor(props: AvatarProps) {
         super(props)
     }

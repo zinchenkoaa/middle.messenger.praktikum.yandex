@@ -7,7 +7,7 @@ import { ContactContainer } from "../../modules/contactContainer";
 import chatHtml from "./chat.tmpl";
 import { Block } from "../../utils/block";
 
-export class Chat extends Block  {
+export class Chat extends Block<Record<string, unknown>>  {
     constructor() {
         super({
             link: new Link({ href: "/profile", text: "Профиль" }),

@@ -1,3 +1,3 @@
 export default `
-  <h1 class="{{{className}}}">{{{title}}}</h1>
+  <h1 class="header">{{{title}}}</h1>
 `

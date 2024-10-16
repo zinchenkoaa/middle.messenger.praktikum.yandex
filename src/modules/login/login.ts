@@ -1,15 +1,20 @@
 import "./login.css";
-import { Form } from "../../components/form";
 import { Input } from "../../components/input";
 import { Button } from "../../components/button";
 import { Link } from "../../components/link";
-import { submitFormData } from "../../utils/submitFormData";
-import { formValidation } from "../../utils/formValidation";
 import { Block } from "../../utils/block";
 import { Header } from "../../components/header/header";
 import loginTmpl from "./login.tmpl";
+import { checkLoginValidaty, checkPasswordValidaty } from "../../utils/formValidation/formValidation";
+import type { AllFormData } from "../../types";
 
-export class Login extends Block {
+type LoginProps = {
+  errorLogin: string;
+  errorPassword: string;
+  formData: AllFormData;
+} & Record<string, unknown>
+
+export class Login extends Block<LoginProps> {
   constructor() {
     super({
       header: new Header({ className: "home-header", title: "Вход" }),
@@ -20,17 +25,22 @@ export class Login extends Block {
         className: "input-type",
         required: true,
         validationType: "login",
-        events: {
-          onfocus: (event: Event) => {
-            formValidation(event);      
-          },
-          onblur: (event: Event) => {
-            formValidation(event);      
-          },
-          onchange: (event: Event) => {
-            formValidation(event);  
-          }
-        }
+        onBlur: (event: Event) => {
+          const login = (event.target as HTMLInputElement).value;
+          this.validateField('errorLogin', login, checkLoginValidaty);
+        },
+        onChange: (event: Event) => {
+          const login = (event.target as HTMLInputElement).value;
+
+          this.setProps({
+            formData: {
+              ...this.props.formData,
+              login: login,
+            },
+          });
+
+          this.validateField('errorLogin', login, checkLoginValidaty);
+        },
       }),
       passwordInput: new Input({
         name: "password",
@@ -39,45 +49,54 @@ export class Login extends Block {
         validationType: "password",
         className: "input-type",
         required: true,
-        events: {
-          onfocus: (event: Event) => {
-            formValidation(event);      
-          },
-          onblur: (event: Event) => {
-            formValidation(event);      
-          },
-          onchange: (event: Event) => {
-            formValidation(event);  
-          }
-        }
+        onBlur: (event: Event) => {
+          const password = (event.target as HTMLInputElement).value;
+          this.validateField('errorPassword', password, checkPasswordValidaty)
+        },
+        onChange: (event: Event) => {
+          const password = (event.target as HTMLInputElement).value;
+
+          this.setProps({
+            formData: {
+              ...this.props.formData,
+              password: password,
+            },
+          });
+
+          this.validateField('errorPassword', password, checkPasswordValidaty);
+        },
       }), 
       button: new Button({
         label: "Авторизоваться",
         type: "submit",
-        events: {
-          submit: (event: Event) => submitFormData(event)
+        onClick: (event: Event) => {
+          event.preventDefault();
+
+          this.validateField('errorLogin', this.props.formData.login, checkLoginValidaty);
+          this.validateField('errorPassword', this.props.formData.password, checkPasswordValidaty);
+          console.log(this.props.formData); // eslint-disable-line no-console
         }
       }),
       link: new Link({
         href: "/registration",
         text: "Нет аккаунта?"
     }),
+    errorLogin: '',
+    errorPassword: '',
+    formData: {
+      login: '',
+      password: '',
+    },
+    });
+  }
+
+  validateField(field: string, value: string, validator: (value: string) => { errorMessage: string | null }): void {
+    this.setProps({
+      [field]: validator(value).errorMessage ?? '',
     });
   }
 
   override render(): string {
-    const form = new Form({
-        name: "formWithLogin",
-        header: `
-        {{{ header }}}
-        `,
-        body: loginTmpl,
-        novalidate: true,
-        settings: {
-            withInternalID: true
-        }
-    });
-
-    return form.render();
+    return loginTmpl;
   }
 }

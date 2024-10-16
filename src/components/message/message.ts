@@ -9,10 +9,6 @@ interface MessageProps extends Props {
 }
 
 export class Message extends Block<MessageProps> {
-    constructor(props: MessageProps) {
-        super(props)
-    }
-
     render(): string {
         return messageHtml;
     }

@@ -49,28 +49,7 @@ export default class Main {
                 inner = new Err({ errorCode: "400", errorText: "Страница не найдена" }).getContent()
         }
 
-        this.attachEventListeners();
-
 
         this.appElement.replaceChildren(inner)
-    }
-
-    attachEventListeners(): void {
-        const links = document.querySelectorAll('a');
-
-        links.forEach(link => {
-          link.addEventListener('click', (e): void => {
-            e.preventDefault();
-          });
-        });
-    
-        const buttons = document.querySelectorAll('button');
-        buttons.forEach(button => {
-          if (button.dataset.page) {
-            button.addEventListener('click', (e): void => {
-              e.preventDefault();
-            });
-          }
-        });
     }
 }

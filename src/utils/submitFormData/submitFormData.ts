@@ -1,10 +1,8 @@
 import { checkAllForm } from "../formValidation";
 
 export const submitFormData = (event: Event): void => {
-  event.preventDefault();
-
   const form = event.target as HTMLFormElement;
-
+  
   if (form != null) {
     if (checkAllForm(form)) {
       printFormData(form);

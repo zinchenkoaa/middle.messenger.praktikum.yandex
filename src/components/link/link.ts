@@ -7,11 +7,7 @@ interface LinkProps extends Props {
     href: string;
 }
 
-export class Link extends Block {
-    constructor(props: LinkProps) {
-        super(props); 
-    }
-
+export class Link extends Block<LinkProps> {
     render(): string {
         return linkHtml;
     }

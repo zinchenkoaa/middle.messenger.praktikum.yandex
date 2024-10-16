@@ -1,12 +1,11 @@
 import "./profileView.css";
 import { Input } from "../../components/input";
-import { Form } from "../../components/form";
 import profileViewHtml from "./profileView.tmpl"
 import { Block } from "../../utils/block";
 import { Avatar } from "../../components/avatar";
 import { Header } from "../../components/header/header";
 
-export class ProfileView extends Block {
+export class ProfileView extends Block<Record<string, unknown>> {
   constructor() {
     super({
       avatar: new Avatar({}),
@@ -59,15 +58,6 @@ export class ProfileView extends Block {
   }
 
   override  render(): string {
-    const form = new Form({
-        name: "formProfileView",
-        header: `{{{ header }}}`,
-        body: profileViewHtml,
-        settings: {
-            withInternalID: true
-        }
-    });
-
-    return form.render(); 
+    return profileViewHtml; 
   }
 }
