@@ -1,1 +1,1 @@
-export { Message } from './message.ts'
+export { Message } from './message'

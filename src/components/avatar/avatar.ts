@@ -1,27 +1,17 @@
-import Handlebars from "handlebars";
 import "./avatar.css";
-import noAvatar from "../../static/noAvatar.svg";
+import avatarHtml from "./avatar.tmpl";
+import { Block } from "../../utils/block";
 
-const avatarHtml = `
-<div class="ava">
-    <img src="${noAvatar}" alt="Аватар" class="ava-img">
-
-    {{#if changeAva}}
-        <div class="ava-overlay">Cменять аватар</div>
-    {{/if}}
-</div>
-`;
-
-interface AvatarProps {
+type AvatarProps = {
     changeAva?: boolean;
-}
+} & Record<string, unknown>
 
-export function Avatar({changeAva = false}: AvatarProps) {
-    const tmpl = Handlebars.compile(avatarHtml);
-
-    const context = {
-        changeAva
+export class Avatar extends Block<AvatarProps> {
+    constructor(props: AvatarProps) {
+        super(props)
     }
 
-    return tmpl(context);
+    render(): string {
+        return avatarHtml;
+    }
 }

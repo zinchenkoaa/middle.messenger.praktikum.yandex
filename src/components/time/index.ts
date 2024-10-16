@@ -1,1 +1,1 @@
-export { Time } from './time.ts'
+export { Time } from './time'

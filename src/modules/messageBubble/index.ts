@@ -1,1 +1,1 @@
-export { MessageBubble } from './messageBubble.ts'
+export { MessageBubble } from './messageBubble'

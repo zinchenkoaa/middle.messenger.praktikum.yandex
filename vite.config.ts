@@ -1,5 +1,5 @@
-import { defineConfig, PluginOption } from 'vite';
-import { resolve, dirname } from 'path';
+import { defineConfig } from "vite"
+import { resolve } from 'path';
 
 export default defineConfig({
   root: resolve(__dirname, 'src'),

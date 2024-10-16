@@ -1,1 +1,1 @@
-export { ContactContainer } from './contactContainer.ts'
+export { ContactContainer } from './contactContainer'

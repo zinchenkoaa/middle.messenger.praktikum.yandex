@@ -1,0 +1,30 @@
+# Обозначает корневую директорию проекта
+root = true
+
+# Общие настройки для всех файлов
+[*]
+indent_style = space    # Отступы пробелами
+indent_size = 4         # Размер отступа 4 пробела
+end_of_line = lf        # Перенос строки (lf - для UNIX-систем, crlf - для Windows)
+charset = utf-8         # Кодировка файла (UTF-8)
+trim_trailing_whitespace = true   # Удалять пробелы в конце строк
+insert_final_newline = true       # Вставлять пустую строку в конце файла
+
+# Специфичные настройки для файлов с расширением .md и .txt
+[*.md, *.txt]
+max_line_length = off   # Отключить проверку на максимальную длину строки
+trim_trailing_whitespace = false  # В .md и .txt файлах не удалять пробелы в конце строк
+
+# Специфичные настройки для файлов с расширением .json
+[*.json]
+indent_style = space    # Отступы пробелами
+indent_size = 2         # Размер отступа 2 пробела
+
+# Специфичные настройки для файлов с расширением .yml и .yaml
+[*.yml, *.yaml]
+indent_style = space    # Отступы пробелами
+indent_size = 2         # Размер отступа 2 пробела
+
+# Специфичные настройки для Makefile
+[Makefile]
+indent_style = tab      # Makefile требует табуляцию вместо пробелов

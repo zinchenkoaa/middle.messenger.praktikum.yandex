@@ -1,24 +1,18 @@
-import Handlebars from "handlebars";
+import headerHtml from "./header.tmpl";
+import type { Props } from "../../types";
+import { Block } from "../../utils/block";
+import "./header.css";
 
-const headerHtml = `
-  {{{ content }}}
-`;
-
-interface HeaderProps {
-  tag: string;
-  className: string;
+interface HeaderProps extends Props {
   title: string;
 }
 
-export function Header({tag, className, title}: HeaderProps) {
-  const tmpl = Handlebars.compile(headerHtml);
-
-  const content = `<${tag} class="${className}">${title}</${tag}>`;
-
-  const context = {
-    className,
-    content
+export class Header extends Block {
+  constructor(props: HeaderProps) {
+    super(props)
   }
 
-  return tmpl(context);
+  override render(): string {
+    return headerHtml;
+  }
 }
