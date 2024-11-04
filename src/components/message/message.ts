@@ -1,22 +1,15 @@
-import Handlebars from "handlebars";
 import "./message.css";
+import type { Props } from "../../types";
+import { Block } from "../../utils/block";
+import messageHtml from "./message.tmpl";
 
-const messageHtml = `
-    <p class="{{ className}}">{{ textMessage }}</p>
-`;
-
-interface MessageProps {
+interface MessageProps extends Props {
     textMessage: string;
-    className?: string;
+    className: string;
 }
 
-export function Message({ textMessage, className = "last-message" }: MessageProps) {
-    const tmpl = Handlebars.compile(messageHtml);
-
-    const context = {
-        textMessage,
-        className
+export class Message extends Block<MessageProps> {
+    render(): string {
+        return messageHtml;
     }
-
-    return tmpl(context);
 }
