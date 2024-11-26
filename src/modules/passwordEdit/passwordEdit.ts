@@ -1,12 +1,12 @@
 import "./passwordEdit.css";
 import passwordEditHtml from "./passwordEdit.tmpl";
 import { Block } from "../../utils/block";
-import { formValidationNew, validationRules} from "../../utils/formValidation/formValidation";
+import { formValidation, validationRules} from "../../utils/formValidation/formValidation";
 import UserPasswordController from "../../controller/userPasswordController";
 import Form from "../../components/form/form";
 
 const userPasswordController = new UserPasswordController();
-const validate = formValidationNew(validationRules);
+const validate = formValidation(validationRules);
 
 const inputGroupList: InputGroupSettings[] = [
     {

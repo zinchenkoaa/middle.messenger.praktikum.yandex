@@ -1,6 +1,6 @@
-import { validationRules, formValidation, formValidationNew } from "./formValidation";
+import { validationRules, formValidation } from "./formValidation";
 
 export {
     formValidation,
-    validationRules, formValidationNew
+    validationRules
 };

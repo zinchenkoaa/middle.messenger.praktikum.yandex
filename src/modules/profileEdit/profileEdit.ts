@@ -3,12 +3,12 @@ import profileEditHtml from "./profileEdit.tmpl";
 import { Block } from "../../utils/block";
 import { Avatar } from "../../components/avatar";
 import {
-    formValidationNew, validationRules
+    formValidation, validationRules
 } from "../../utils/formValidation/formValidation";
 import connect from "../../utils/store/connect";
 import Form from "../../components/form/form";
 
-const validate = formValidationNew(validationRules);
+const validate = formValidation(validationRules);
 
 function mapStateToProps(state: Indexed): Indexed {
     const user = (state as State).auth.user != null ? (state as State).auth.user : {};

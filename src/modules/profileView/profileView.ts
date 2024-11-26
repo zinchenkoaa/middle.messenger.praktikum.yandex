@@ -6,10 +6,10 @@ import Router from "../../route/Router";
 import UserLoginController from "../../controller/userLoginController";
 import connect from "../../utils/store/connect";
 import Form from "../../components/form/form";
-import {formValidationNew, validationRules} from "../../utils/formValidation";
+import {formValidation, validationRules} from "../../utils/formValidation";
 
 const userLoginController = new UserLoginController();
-const validate = formValidationNew(validationRules);
+const validate = formValidation(validationRules);
 const router = new Router('#root');
 
 function mapStateToProps(state: Indexed): Indexed {

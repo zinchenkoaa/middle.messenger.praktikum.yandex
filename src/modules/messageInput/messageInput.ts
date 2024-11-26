@@ -4,7 +4,7 @@ import { Button } from "../../components/button";
 import { Input } from "../../components/input";
 import messageInputHtml from "./messageInput.tmpl";
 import { Block } from "../../utils/block";
-import {formValidationNew, validationRules} from "../../utils/formValidation";
+import {formValidation, validationRules} from "../../utils/formValidation";
 
 const createOnEnterHandler = (
     controller: MessageControllerInterface,
@@ -13,7 +13,7 @@ const createOnEnterHandler = (
     const target = e.target as HTMLInputElement;
     if (e.key === 'Enter') {
         const message = getMessage();
-        const validate = formValidationNew(validationRules);
+        const validate = formValidation(validationRules);
         const error = validate('message', message);
         if (error) {
             alert(error);
@@ -59,7 +59,7 @@ export class MessageInput extends Block {
 
         const message = inputElement ? inputElement.value : '';
 
-        const validate = formValidationNew(validationRules);
+        const validate = formValidation(validationRules);
         const error = validate('message', message);
 
         if (error) {

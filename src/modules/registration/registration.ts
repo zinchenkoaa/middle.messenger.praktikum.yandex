@@ -2,10 +2,10 @@ import registrationHtml from "./registration.tmpl";
 import { Block } from "../../utils/block";
 import UserRegistrationController from '../../controller/userRegistrationController';
 import Form from "../../components/form/form";
-import {formValidationNew, validationRules} from "../../utils/formValidation";
+import {formValidation, validationRules} from "../../utils/formValidation";
 
 const userRegistrationController = new UserRegistrationController();
-const validate = formValidationNew(validationRules);
+const validate = formValidation(validationRules);
 
 const inputGroupList: InputGroupSettings[] = [
     {

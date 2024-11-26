@@ -2,7 +2,7 @@ import { Block } from "../../utils/block";
 import loginTmpl from "./login.tmpl";
 import UserLoginController from '../../controller/userLoginController';
 import Form from "../../components/form/form";
-import {formValidationNew, validationRules} from "../../utils/formValidation";
+import {formValidation, validationRules} from "../../utils/formValidation";
 
 const userLoginController = new UserLoginController();
 
@@ -29,7 +29,7 @@ const inputGroupList: InputGroupSettings[] = [
     },
 ];
 
-const validate = formValidationNew(validationRules);
+const validate = formValidation(validationRules);
 
 export class Login extends Block {
   constructor() {
