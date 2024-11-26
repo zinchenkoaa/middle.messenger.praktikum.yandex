@@ -2,52 +2,57 @@ import "./contactContainer.css";
 import { CardContact } from "../../modules/cardContact";
 import { Block } from "../../utils/block";
 import contactContainerHtml from "./contactContainer.tmpl";
+import ChatsController from "../../controller/chatsController";
+import MessagesController from '../../controller/messagesController';
+import store from "../../utils/store/store";
+import connect from "../../utils/store/connect";
 
-export class ContactContainer extends Block<Record<string, unknown>> {
-    constructor() {
+const chatsController = new ChatsController();
+const messagesController = new MessagesController();
+
+type ChatListSettings = {
+    chats: ChatItemSettings[]
+}
+
+class ContactContainer extends Block {
+    constructor(props: ChatListSettings) {
         super({
-        contactOne: new CardContact({
-            contactName: "Иван Иванов", 
-            message: "Привет! Как дела?", 
-            contactMessageCount: "5", 
-            contactLastMessageTime: "10:45"
-        }),
-        contactTwo: new CardContact({
-            contactName: "Александр Петров", 
-            contactLastMessageTime: "12:40",
-            message: "Привет! Во сколько?"
-        }),
-        contactThree: new CardContact({
-            contactName: "Василий Макаров", 
-            contactLastMessageTime: "06:15",
-            message: "Привет! Где?"
-        }),
-        contactFour: new CardContact({
-            contactName: "Макс Коржов", 
-            contactLastMessageTime: "11:45",
-            contactMessageCount: "1", 
-            message: "Привет! Во сколько?"
-        }),
-        contactFive: new CardContact({
-            contactName: "Андрей Попов", 
-            contactLastMessageTime: "16:00",
-            message: "Привет!"
-        }),
-        contactSix: new CardContact({
-            contactName: "Артем Петров", 
-            contactLastMessageTime: "12:45",
-            message: "Привет! Я буду"
-        }),
-        contactSeven: new CardContact({
-            contactName: "Марк Захаров", 
-            contactLastMessageTime: "19:45",
-            contactMessageCount: "23", 
-            message: "Что? Каво?"
+            chatItemsList: [],
+            ...props
         })
-    })
     }
 
-    override render(): string {
+    public render(): string {
         return contactContainerHtml;
     }
 }
+
+function mapUserToProps(state:Indexed) {
+    return {
+        chats: state.chats,
+        test: state.test,
+    };
+}
+const createItemCallback =  (prop: ChatItemSettings) => {
+    return new CardContact(
+        {...prop,
+            onClick: () => {
+                store.set('ui.currentChatId', prop.id);
+                store.set('currentChat', { id: prop.id, title: prop.title });
+                chatsController.getChatUsers(prop.id)
+                messagesController.start();
+                console.log('store', store.getState())
+            }
+        })
+}
+const listUpdateProps = {
+    key:'chatItemsList',
+    createItemCallback,
+}
+
+function mapStateToListProps(state:Indexed):Indexed {
+    return state.chats as Indexed;
+}
+
+
+export default connect(ContactContainer, mapUserToProps, listUpdateProps, mapStateToListProps)

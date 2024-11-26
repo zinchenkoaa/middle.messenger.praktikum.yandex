@@ -5,17 +5,25 @@ export default `
 
         {{{ search }}}
 
-        {{{ contactContainer }}}
-    </div>
+        {{{addUser}}}
 
-    <div class="all-message">
-        <div class="container">
-            {{{ messageBubbleOne }}}
-            {{{ messageBubbleTwo }}}
-            {{{ messageBubbleThree }}}
+        <div class="add-user-wrapper">
+            {{{buttonAdd}}}
+
+            {{{buttonAddUser}}}
+            {{{modalCreateChat}}}
+            {{{modalDeleteUserFromChat}}}
+            {{{modalDeleteChat}}}
+
+            <div class="add-button">
+
+            </div>
         </div>
 
-        {{{ messageInput }}}
+        {{{ contactContainer }}}
     </div>
+    </div>
+
+        {{{chatMessages}}}
 </main>
 `

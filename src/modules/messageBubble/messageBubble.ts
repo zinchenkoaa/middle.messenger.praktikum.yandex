@@ -4,21 +4,15 @@ import { Time } from "../../components/time";
 import { Block } from "../../utils/block";
 import messageBubbleHtml from "./messageBubble.tmpl";
 
-type MessageProps = {
-    textMessage: string;
-    className?: string;
-    isUser: boolean;
-} & Record<string, unknown>
-
-export class MessageBubble extends Block<MessageProps> {
-    constructor(props: MessageProps) {
+export class MessageBubble extends Block {
+    constructor(props: Indexed) {
         super({...props,
-            contactMessage: new Message({ textMessage: props.textMessage, className: props.className ?? 'message-text' }),
-            messageTime: new Time({ time: "10:45" })
+            contactMessage: new Message({ textMessage: props.text, className: props.className ?? 'message-text' }),
+            messageTime: new Time({ time: props.time})
         });
     }
 
-    render(): string {    
+    render(): string {
         return messageBubbleHtml;
     }
 }
