@@ -1,45 +1,67 @@
-import Handlebars from "handlebars";
 import "./chat.css";
-import { Link } from "../../components/link";
 import { Search } from "../../components/search";
-import { MessageBubble } from "../../modules/messageBubble";
-import { MessageInput } from "../../modules/messageInput";
-import { ContactContainer } from "../../modules/contactContainer";
+import chatHtml from "./chat.tmpl";
+import { Block } from "../../utils/block";
+import Router from "../../route/Router";
+import AddUserToChatController from "../../controller/addUserController";
+import ModalAdd from "../../components/modal/modal";
+import {Button} from "../../components/button";
+import store from "../../utils/store/store";
+import ModalCreateChatController from '../../controller/createChatController';
 
-const chatHtml = `
-<main class="chat">
-    <div class="left-panel">
-        {{{ link }}}
+const addUserToChatController = new AddUserToChatController();
+const modalCreateChatController = new ModalCreateChatController();
+const deleteUserFromChatController = new DeleteUserFromChatController();
+import ChatsController from "../../controller/chatsController";
+import ContactContainer from "../../modules/contactContainer/contactContainer";
+import ChatMessages from "../../components/chatMessages/chatMessages";
+import DeleteChatController from "../../controller/deleteChatController";
+import DeleteUserFromChatController from "../../controller/deleteUserFromChatController";
 
-        {{{ search }}}
+const router = new Router('#root');
 
-        {{{ contactContainer }}}
-    </div>
+const chatsController = new ChatsController();
+const deleteChatController = new DeleteChatController();
 
-    <div class="all-message">
-        <div class="container">
-            {{{ messageBubbleOne }}}
-            {{{ messageBubbleTwo }}}
-            {{{ messageBubbleThree }}}
-        </div>
-
-        {{{ messageInput }}}
-    </div>
-</main>
-`;
-
-export function chat() {
-
-    const tmpl = Handlebars.compile(chatHtml);
-    const context = {
-        link: Link({ href: "/profile", text: "Профиль"}),
-        search: Search({ placeholder: "Поиск" }),
-        messageBubbleOne: MessageBubble({ textMessage: "Привет! Как дела?", isUser: false }),
-        messageBubbleTwo: MessageBubble({ textMessage: "Привет! Всё хорошо. Как у тебя?", isUser: true }),
-        messageBubbleThree: MessageBubble({ textMessage: "Что не отвечаешь?", isUser: true }),
-        messageInput: MessageInput,
-        contactContainer: ContactContainer,
+export default class Chat extends Block {
+    constructor() {
+        chatsController.getChats();
+        super({
+            link: new Button({ label: "Профиль", onClick:() => router.go('/settings') }),
+            search: new Search({ placeholder: "Поиск" }),
+            chatMessages: new ChatMessages({}),
+            contactContainer: new ContactContainer({}),
+            addUser: new ModalAdd({ btnName: 'Добавить', controller: addUserToChatController, modalName: 'addUserToChat', title: 'Добавить участника',  }),
+            buttonAdd: new Button({
+                label: 'Создать чат',
+                onClick: () => {
+                    store.set('ui.modalActive.name', 'createChat');
+                }
+            }),
+            modalDeleteChat: new ModalAdd({
+                title: 'Удалить чат',
+                btnName: 'Удалить',
+                modalName: 'deleteChat',
+                controller: deleteChatController,
+                inputHidden: true,
+            }),
+            modalDeleteUserFromChat: new ModalAdd({
+                title: 'Удалить пользователя?',
+                btnName: 'Удалить',
+                modalName: 'deleteUserFromChat',
+                controller: deleteUserFromChatController,
+                inputHidden: true,
+            }),
+            modalCreateChat: new ModalAdd({
+                title: 'Создать чат',
+                btnName: 'Создать',
+                modalName: 'createChat',
+                controller: modalCreateChatController
+            })
+        })
     }
 
-    return tmpl(context);
+    public render(): string {
+        return chatHtml
+    }
 }

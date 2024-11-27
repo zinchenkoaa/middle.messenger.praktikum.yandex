@@ -1,71 +1,79 @@
-import Handlebars from "handlebars";
 import "./profileView.css";
-import { Input } from "../../components/input";
+import { Block } from "../../utils/block";
+import {Link} from "../../components/link";
+import Router from "../../route/Router";
+import UserLoginController from "../../controller/userLoginController";
+import connect from "../../utils/store/connect";
+import Avatar from "../../components/avatar/avatar";
 
-const profileViewHtml =     `
-<div class="profile-view">
-    {{{ mailInput }}}
-    {{{ loginInput }}}
-    {{{ firstNameInput }}}
-    {{{ secondNameInput }}}
-    {{{ displayNameInput }}}
-    {{{ phoneInput }}}
-</div>
+const userLoginController = new UserLoginController();
+const router = new Router('#root');
 
-<div class="profile-view-links">
-    <div class="profile-view-link"><a href="/profile-edit">Изменить данные</a></div>
-    <div class="profile-view-link"><a href="/password-edit">Изменить пароль</a></div>
-    <div class="profile-view-link profile-view-linklogout"><a href="/">Выйти</a></div>
-</div>
-`;
+const joinImagePath = (img:string) => (['https://ya-praktikum.tech/api/v2', 'resources', img].join('/'));
 
-export function profileView() {
-    const tmpl = Handlebars.compile(profileViewHtml);
-    
-    const context = {
-        mailInput: Input({
-            name: "email",
-            text: "Почта",
-            value: "test@yandex.ru",
-            required: true,
-            disabled: true,
-            type: "email",
+class ProfileView extends Block {
+  constructor(props:Indexed) {
+    super({
+        ...props,
+        header: "Данные профиля",
+        ProfilePhoto: new Avatar({
+            img_src: joinImagePath(props.avatar as string)
         }),
-        loginInput: Input({
-            name: "login",
-            text: "Логин",
-            value: "testtestovich",
-            required: true,
-            disabled: true,
-        }),
-        firstNameInput: Input({
-            name: "first_name",
-            text: "Имя",
-            value: "Тест",
-            required: true,
-            disabled: true,
-        }),
-        secondNameInput: Input({
-            name: "second_name",
-            text: "Фамилия",
-            value: "Тестович",
-            disabled: true,
-        }),
-        displayNameInput: Input({
-            name: "display_name",
-            text: "Имя в чате",
-            value: "Тестович",
-            disabled: true,
-        }),
-        phoneInput: Input({
-            name: "phone",
-            text: "Телефон",
-            value: "+7 (999) 999 99 99",
-            type: "tel",
-            required: true,
-            disabled: true,
+            ButtonChangeData: new Link({
+                text: 'Изменить данные',
+                onClick: () => router.go('/profile-edit'),
+            }),
+            ButtonChangePassword: new Link({
+                text: 'Изменить пароль',
+                onClick: () => router.go('/password-edit'),
+            }),
+            IconLogout: new Link({
+                text: 'Выйти',
+                onClick: () => {
+                    userLoginController.logout()
+                },
+            }),
         })
-    };
+  }
 
-    return tmpl(context);
+  public render(): string {
+    return `
+      <div class="side-panel">
+        {{{ProfilePhoto }}}
+        <div class="profile-info">
+              <div class="profile-info-item">
+                <div class="profile-info-data">
+                  <span class="profile-info-subtitle">телефон</span>
+                  <span class="profile-info-title">{{phone}}</span>
+                </div>
+              </div>
+              <div class="profile-info-item">
+                <div class="profile-info-data">
+                  <span class="profile-info-subtitle">почта</span>
+                  <span class="profile-info-title">{{email}}</span>
+                </div>
+              </div>
+              <div class="profile-info-item">
+                <div class="profile-info-data">
+                  <span class="profile-info-subtitle">логин</span>
+                  <span class="profile-info-title">{{login}}</span>
+                </div>
+              </div>
+              <div class="profile-btn btn-group-2">
+                {{{ButtonChangeData}}}
+                {{{ButtonChangePassword}}}
+                {{{IconLogout}}}
+              </div>
+          </div>
+      </div>`;;
+  }
 }
+
+function mapUserToProps(state:State) {
+    console.log(state.auth.user)
+    return {
+        ...state.auth.user
+    };
+}
+
+export default connect(ProfileView, mapUserToProps);

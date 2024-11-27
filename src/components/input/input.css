@@ -1,4 +1,10 @@
+.input-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
 .input-label {
+    margin-top: 10px;
     color: #999;
     font-size: 9px;
     font-weight: 500;
@@ -10,13 +16,15 @@
     border: none;
     color: black;
     background-color: transparent;
-    border-width: 0;
     border-bottom: 1px solid #3369F3;
+    box-sizing: border-box;
+    padding: 0;
     text-align: start;
 }
 
 .input-type:focus {
     outline: none;
+    padding: 0;
 }
 
 .input-error-message {
@@ -27,7 +35,7 @@
 }
 
 .message-field {
-    flex: 1; 
+    flex: 1;
     padding: 10px;
     border: none;
     outline: none;

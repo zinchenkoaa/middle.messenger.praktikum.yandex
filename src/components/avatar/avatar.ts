@@ -1,27 +1,48 @@
-import Handlebars from "handlebars";
 import "./avatar.css";
-import noAvatar from "../../static/noAvatar.svg";
+import avatarHtml from "./avatar.tmpl";
+import { Block } from "../../utils/block";
+import UserProfileController from "../../controller/userProfileController";
+import connect from "../../utils/store/connect";
+const userProfileController = new UserProfileController();
 
-const avatarHtml = `
-<div class="ava">
-    <img src="${noAvatar}" alt="Аватар" class="ava-img">
-
-    {{#if changeAva}}
-        <div class="ava-overlay">Cменять аватар</div>
-    {{/if}}
-</div>
-`;
-
-interface AvatarProps {
-    changeAva?: boolean;
-}
-
-export function Avatar({changeAva = false}: AvatarProps) {
-    const tmpl = Handlebars.compile(avatarHtml);
-
-    const context = {
-        changeAva
+class Avatar extends Block {
+    constructor(props: Indexed) {
+        super({...props, events: {
+                click: () => this.triggerFileInput(),
+                change: (event: Event) => this.handleFileChange(event)
+            }})
     }
 
-    return tmpl(context);
+    protected triggerFileInput = (): void  =>{
+        console.log('trigger')
+        const fileInput = this.element?.querySelector('input[type="file"]');
+        if (fileInput) {
+            (fileInput as HTMLInputElement).click(); // Открываем окно выбора файла
+        }
+    }
+
+    protected handleFileChange = async(event: Event) => {
+        const input = event.target as HTMLInputElement;
+        if (input && input.files) {
+            const file = input.files[0];
+            if (file) {
+                const formData = new FormData();
+                formData.append('avatar', file)
+                console.log( Object.fromEntries(formData))
+                userProfileController.updateAvatar(formData)
+            }
+
+        }}
+
+    render(): string {
+        return avatarHtml;
+    }
 }
+
+function mapProfilePhotoToProps(state: State):Indexed {
+    return {
+        ...state.auth.user
+    };
+}
+
+export default connect(Avatar, mapProfilePhotoToProps);

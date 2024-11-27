@@ -1,49 +1,53 @@
-import Handlebars from "handlebars";
-import "./login.css";
-import { Input } from "../../components/input";
-import { Button } from "../../components/button";
-import { Link } from "../../components/link";
+import { Block } from "../../utils/block";
+import loginTmpl from "./login.tmpl";
+import UserLoginController from '../../controller/userLoginController';
+import Form from "../../components/form/form";
+import {formValidation, validationRules} from "../../utils/formValidation";
 
-const loginHtml = `
-        <div class="login">
-            <div class="login__inputs">
-                {{{ loginInput }}}
-                {{{ passwordInput }}}
-            </div>
+const userLoginController = new UserLoginController();
 
-            <div class="login-footer">
-                {{{ button }}}
+const inputGroupList: InputGroupSettings[] = [
+    {
+        text: 'Логин',
+        type: 'text',
+        name: 'login',
+        placeholder: 'Введите логин',
+        onBlur: () => {},
+        onChange: () => {},
+        value: '',
+        error: ''
+    },
+    {
+        text: 'Пароль',
+        type: 'password',
+        name: 'password',
+        placeholder: 'Введите пароль',
+        onBlur: () => {},
+        onChange: () => {},
+        value: '',
+        error: ''
+    },
+];
 
-                {{{ link }}}
-            </div>
-        </div>
-    `;
+const validate = formValidation(validationRules);
 
-export function login() {
-
-    const tmpl = Handlebars.compile(loginHtml);
-    const context = {
-        loginInput: Input({
-            name: "login",
-            text: "Логин",
-            required: true,
-            errorMessage: "Неверный логин"
-        }),
-        passwordInput: Input({
-            name: "password",
-            text: "Пароль",
-            type: "password",
-            required: true,
-            errorMessage: "Неверный пароль"
-        }),
-        button: Button({
-            label: "Авторизоваться",
-        }),
-        link: Link({
-            href: "/registration",
-            text: "Нет аккаунта?"
+export class Login extends Block {
+  constructor() {
+    super({
+        Form: new Form({
+            header: "Вход",
+            inputGroupList,
+            btnTitle: 'Авторизоваться',
+            validate,
+            showButton: true,
+            linkTitle: 'Нет аккаунта?',
+            link: '/sign-up',
+            controller: userLoginController
         })
-    };
+    })
+  }
 
-    return tmpl(context);
+  public render(): string {
+    return loginTmpl;
+  }
 }

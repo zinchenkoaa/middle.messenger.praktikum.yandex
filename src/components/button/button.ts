@@ -1,21 +1,18 @@
-import Handlebars from "handlebars";
+import buttonHtml from "./button.tmpl";
+import { Block } from "../../utils/block";
 import "./button.css";
 
-const buttonHtml = `
-<button class="{{ className }}">
-    {{{ label }}}
-</button>
-`;
+export class Button extends Block {
+    constructor(props: ButtonSettings) {
+        super({
+            ...props,
+            events: {
+                click: props.onClick
+            },
+        });
+    }
 
-interface ButtonProps {
-    label: string;
-    className?: string
-}
-
-export function Button({ label, className = "button" }: ButtonProps) {
-
-    const tmpl = Handlebars.compile(buttonHtml);
-    const context = { label, className };
-
-    return tmpl(context);
+    public render(): string {
+        return buttonHtml;
+    }
 }

@@ -1,9 +1,0 @@
-.login {
-    display: flex;
-    flex-direction: column;
-    place-content: space-between space-between;
-}
-
-.login-footer {
-    margin-top: 45px;
-}

@@ -1,15 +1,14 @@
-.profile-view-links {
-    margin-top: 20px;
+.side-panel {
+    background: #FFF;
+    box-shadow: 0 0 6px 0 #00000024;
+    border-radius: 12px;
+    padding: 50px 30px;
 }
 
-.profile-view-link {
-    padding: 10px 0;
+.profile-info {
+    color: black;
 }
 
-.profile-view-link-logout {
-    border-bottom: none;
-
-    a {
-        color: red;
-    }
+.profile-info-item {
+    margin-bottom: 0;
 }

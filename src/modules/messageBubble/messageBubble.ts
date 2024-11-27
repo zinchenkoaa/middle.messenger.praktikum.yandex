@@ -1,35 +1,26 @@
-import Handlebars from "handlebars";
 import "./messageBubble.css";
 import { Message } from "../../components/message";
 import { Time } from "../../components/time";
+import { Block } from "../../utils/block";
 
-const messageBubbleHtml = `
-<div class="message-container {{#if isUser}}from-user{{else}}from-other{{/if}}">
+export class MessageBubble extends Block {
+    constructor(props: Indexed) {
+        super({...props,
+            contactMessage: new Message({ textMessage: props.content, className: props.content ? 'message-text' : 'last-message' }),
+            messageTime: new Time({ time: props.time})
+        });
+    }
+
+    render(): string {
+        const messageClass = this.props.isSender ? 'from-user' : 'from-other'
+        return `
+<div class="message-container ${messageClass}">
     <div class="message-bubble">
         {{{ contactMessage }}}
-        
+
         {{{ messageTime }}}
     </div>
 </div>
 `;
-
-interface MessageProps {
-    textMessage: string;
-    className?: string;
-    isUser: boolean;
-}
-
-export function MessageBubble({ textMessage, className = "message-text", isUser }: MessageProps) {
-    const tmpl = Handlebars.compile(messageBubbleHtml);
-
-    const context = {
-        contactMessage: Message({ 
-            textMessage, 
-            className,
-        }),
-        isUser,
-        messageTime: Time({ time: "10:45" }),
-    };
-
-    return tmpl(context);
+    }
 }

@@ -1,20 +1,28 @@
-import Handlebars from "handlebars";
+import { Block } from "../../utils/block";
 import "./link.css";
+import type { Props } from "../../types";
+import linkHtml from "./link.tmpl";
 
-const linkHtml = `<div class="link-wrapper"><a class="link" href="{{ href }}">{{ text }}</a></div>`;
-
-interface LinkProps {
-    href: string;
+interface LinkProps extends Props {
     text: string;
+    onClick: (e: Event) => void,
 }
 
-export function Link({
-    href,
-    text,
-}: LinkProps) {
-    const template = linkHtml;
-    const tmpl = Handlebars.compile(template);
-    const context = { href, text };
+export class Link extends Block {
+    constructor(props: LinkProps) {
+        super({
+            ...props,
+            events: {
+                click: (event: MouseEvent) => {
+                    event.preventDefault();
 
-    return tmpl(context);
+                    props.onClick(event)
+                },
+            },
+        });
+    }
+
+    render(): string {
+        return linkHtml;
+    }
 }

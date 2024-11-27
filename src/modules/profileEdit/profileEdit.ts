@@ -1,70 +1,104 @@
-import Handlebars from "handlebars";
 import "./profileEdit.css";
-import { Input } from "../../components/input";
-import { Button } from "../../components/button";
+import profileEditHtml from "./profileEdit.tmpl";
+import { Block } from "../../utils/block";
+import {
+    formValidation, validationRules
+} from "../../utils/formValidation/formValidation";
+import connect from "../../utils/store/connect";
+import Form from "../../components/form/form";
+import UserProfileController from "../../controller/userProfileController";
+import Avatar from "../../components/avatar/avatar";
 
-const profileEditHtml =     `
-<div class="profile-edit">
-    {{{ mailInput }}}
-    {{{ loginInput }}}
-    {{{ firstNameInput }}}
-    {{{ secondNameInput }}}
-    {{{ displayNameInput }}}
-    {{{ phoneInput }}}
-    <div class="profile-edit-button">
-        {{{ button }}}
-    </div>
-</div>
-`;
+const validate = formValidation(validationRules);
+const userProfileController = new UserProfileController();
 
-export function profileEdit() {
-    const tmpl = Handlebars.compile(profileEditHtml);
+function mapStateToProps(state: Indexed): Indexed {
+    const user = (state as State).auth.user != null ? (state as State).auth.user : {};
 
-    const context = {
-        mailInput: Input({
-            name: "email",
-            text: "Почта",
-            value: "test@yandex.ru",
-            required: true,
-            type: "email",
-            errorMessage: "Неверная почта",
-        }),
-        loginInput: Input({
-            name: "login",
-            text: "Логин",
-            value: "testtestovich",
-            required: true,
-            errorMessage: "Неверный логин",
-        }),
-        firstNameInput: Input({
-            name: "first_name",
-            text: "Имя",
-            value: "Тест",
-            required: true,
-            errorMessage: "Неверное имя",
-        }),
-        secondNameInput: Input({
-            name: "second_name",
-            text: "Фамилия",
-            value: "Тестович",
-            errorMessage: "Неверная фамилия",
-        }),
-        displayNameInput: Input({
-            name: "display_name",
-            text: "Имя в чате",
-            value: "Тестович",
-            errorMessage: "Неверное имя в чате",
-        }),
-        phoneInput: Input({
-            name: "phone",
-            text: "Телефон",
-            value: "+7 (999) 999 99 99",
-            type: "tel",
-            required: true,
-            errorMessage: "Неверный телефон",
-        }),
-        button: Button({ label: "Сохранить" })
-    };
+    const inputGroupList: InputGroupSettings[] = [
+        {
+            text: 'Имя в сети',
+            type: 'text',
+            name: 'display_name',
+            placeholder: 'Введите имя в сети',
+            onBlur: () => {},
+            onChange: () => {},
+            value: user != null && user.display_name || '',
+            error: ''
+        },
+        {
+            text: 'Почта',
+            type: 'text',
+            name: 'email',
+            placeholder: 'Введите email',
+            onBlur: () => {},
+            onChange: () => {},
+            value: user != null && user.email || '',
+            error: ''
+        },
+        {
+            text: 'Логин',
+            type: 'text',
+            name: 'login',
+            placeholder: 'Введите логин',
+            onBlur: () => {},
+            onChange: () => {},
+            value: user != null && user.login || '',
+            error: ''
+        },
+        {
+            text: 'Имя',
+            type: 'text',
+            name: 'first_name',
+            placeholder: 'Введите имя',
+            onBlur: () => {},
+            onChange: () => {},
+            value: user != null && user.first_name || '',
+            error: ''
+        },
+        {
+            text: 'Фамилия',
+            type: 'text',
+            name: 'second_name',
+            placeholder: 'Введите фамилию',
+            onBlur: () => {},
+            onChange: () => {},
+            value: user != null && user.second_name || '',
+            error: ''
+        },
+        {
+            text: 'Телефон',
+            type: 'tel',
+            name: 'phone',
+            placeholder: 'Введите телефон',
+            onBlur: () => {},
+            onChange: () => {},
+            value: user != null && user.phone || '',
+            error: ''
+        },
+    ];
+    return { inputGroupList }
+}
+const connectedForm = connect(Form, mapStateToProps);
 
-    return tmpl(context);
+export default class ProfileEdit extends Block {
+    constructor() {
+        super({
+            Form: new connectedForm({
+                inputGroupList: [],
+                header: 'Изменение данных',
+                validate,
+                btnTitle: 'Сохранить',
+                linkTitle: 'Назад',
+                link: '/settings',
+                showButton: true,
+                controller: userProfileController,
+                avatar: new Avatar({}),
+            }),
+        })
+    }
+
+    public  render(): string {
+        return profileEditHtml;
+    }
 }
