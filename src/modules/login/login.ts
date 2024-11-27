@@ -41,7 +41,7 @@ export class Login extends Block {
             validate,
             showButton: true,
             linkTitle: 'Нет аккаунта?',
-            link: '/registration',
+            link: '/sign-up',
             controller: userLoginController
         })
     })

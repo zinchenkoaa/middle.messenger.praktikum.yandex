@@ -10,7 +10,7 @@ export class CardContact extends Block {
             events: {
                 click: (e :Event) => props.onClick && props.onClick(e)
             },
-            messageInit: new Message({ textMessage: props.last_message ?? '', className: "last-message" }),
+            messageInit: new Message({ textMessage: props.last_message?.content ?? '', className: "last-message" }),
             contactTime: new Time({ time: '22:22', className: "card-time" }),
         })
     }

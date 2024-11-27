@@ -6,11 +6,9 @@ import connect from "../../utils/store/connect";
 import {MessageBubble} from "../../modules/messageBubble";
 import {Link} from "../link";
 import {MessageInput} from "../../modules/messageInput";
-import MessageController from "../../controller/messagesController";
 import ChatProfileUser from "../chatProfile/chatProfile";
 import UsersDr from "../userDr/userDr";
-
-const messagesController = new MessageController();
+import messagesController from "../../controller/messagesController";
 
 const mapStateToProps = (state:State) => {
     const currentChat = state.currentChat;
@@ -27,7 +25,7 @@ const ChatProfile = connect(ChatProfileUser, mapStateToProps);
 class ChatMessages extends Block {
     constructor(props: Indexed) {
         super({...props,
-            messagesU: [],
+            Messages: [],
             buttonAdd: new Link({
                 text: 'Добавить участника',
                 onClick: () => {
@@ -40,9 +38,9 @@ class ChatMessages extends Block {
                     store.set('ui.modalActive.name', 'deleteChat');
                 }
             }),
-            messageInput: new MessageInput(
-                {controller: messagesController}
-            ),
+            messageInput: new MessageInput({
+                controller: messagesController
+            }),
             chatProfile: new ChatProfile({
                 isProfile: false,
             }),
@@ -63,15 +61,16 @@ function mapUserToProps(state: State):Indexed {
 }
 
 const createItemCallback =  (prop:Indexed) => {
+    console.log(prop)
     return new MessageBubble(prop)
 }
 const listUpdateProps = {
-    key:'messagesU',
+    key:'messages',
     createItemCallback,
 }
 
-function mapStateToListProps(state: Indexed):Indexed {
-    return  state.messages as Indexed;
+function mapStateToListProps(state: Indexed<any>): Indexed {
+    return  state.messages.filter((message: Indexed) => message.type === 'message') as Indexed;
 }
 
 export default connect(ChatMessages, mapUserToProps, listUpdateProps, mapStateToListProps);

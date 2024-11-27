@@ -29,6 +29,9 @@ export class MessageInput extends Block {
 
     constructor(props: Indexed) {
         const controller = props.controller as MessageControllerInterface;
+
+        console.log(props.controller);
+
         const getMessage = () => {
             const inputElement = this.children.input.element as HTMLInputElement;
             return inputElement ? inputElement.value : '';
@@ -54,19 +57,15 @@ export class MessageInput extends Block {
 
     private handleSendMessage(): void {
         const inputElement = this.children.input.element as HTMLInputElement;
-
-        console.log('inputElement', inputElement.value);
-
         const message = inputElement ? inputElement.value : '';
 
         const validate = formValidation(validationRules);
         const error = validate('message', message);
-
         if (error) {
             alert(error);
         } else {
             this.controller.send(message);
-            inputElement.value = '';
+            inputElement.value = ''; // Очистка поля после отправки
         }
     }
 

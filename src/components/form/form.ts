@@ -4,9 +4,9 @@ import connect from "../../utils/store/connect";
 import {Button} from "../button";
 import "./form.css";
 import formTmpl from "./form.tmpl";
-import {Link} from "../link";
 import InputGroup from "../inputGroup/inputGroup";
 import Router from "../../route/Router";
+import {Link} from "../link";
 
 type FormSettings = {
     header: string;

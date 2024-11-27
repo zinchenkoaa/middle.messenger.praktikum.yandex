@@ -1,5 +1,4 @@
 import "./chat.css";
-import { Link } from "../../components/link";
 import { Search } from "../../components/search";
 import chatHtml from "./chat.tmpl";
 import { Block } from "../../utils/block";
@@ -24,11 +23,11 @@ const router = new Router('#root');
 const chatsController = new ChatsController();
 const deleteChatController = new DeleteChatController();
 
-export class Chat extends Block {
+export default class Chat extends Block {
     constructor() {
         chatsController.getChats();
         super({
-            link: new Link({ href: "/profile", text: "Профиль", onClick:() => router.go('/profile') }),
+            link: new Button({ label: "Профиль", onClick:() => router.go('/settings') }),
             search: new Search({ placeholder: "Поиск" }),
             chatMessages: new ChatMessages({}),
             contactContainer: new ContactContainer({}),

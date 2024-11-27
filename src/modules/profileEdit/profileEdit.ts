@@ -1,14 +1,16 @@
 import "./profileEdit.css";
 import profileEditHtml from "./profileEdit.tmpl";
 import { Block } from "../../utils/block";
-import { Avatar } from "../../components/avatar";
 import {
     formValidation, validationRules
 } from "../../utils/formValidation/formValidation";
 import connect from "../../utils/store/connect";
 import Form from "../../components/form/form";
+import UserProfileController from "../../controller/userProfileController";
+import Avatar from "../../components/avatar/avatar";
 
 const validate = formValidation(validationRules);
+const userProfileController = new UserProfileController();
 
 function mapStateToProps(state: Indexed): Indexed {
     const user = (state as State).auth.user != null ? (state as State).auth.user : {};
@@ -79,19 +81,19 @@ function mapStateToProps(state: Indexed): Indexed {
 }
 const connectedForm = connect(Form, mapStateToProps);
 
-export class ProfileEdit extends Block {
+export default class ProfileEdit extends Block {
     constructor() {
         super({
             Form: new connectedForm({
+                inputGroupList: [],
                 header: 'Изменение данных',
                 validate,
                 btnTitle: 'Сохранить',
                 linkTitle: 'Назад',
-                link: '/profile',
+                link: '/settings',
                 showButton: true,
-                avatar: new Avatar({
-                    changeAva: true
-                }),
+                controller: userProfileController,
+                avatar: new Avatar({}),
             }),
         })
     }

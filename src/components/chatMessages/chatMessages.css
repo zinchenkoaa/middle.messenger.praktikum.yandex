@@ -3,27 +3,33 @@
     height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
 }
 
-.all-message > div:first-child {
+.message-header {
+    flex-shrink: 0;
+    background-color: #f4f4f4;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.content-wrapper {
     flex-grow: 1;
     display: flex;
-}
-
-.container {
-    display: flex;
     flex-direction: column;
-    position: relative;
 }
 
-.close-chat {
-    display: flex;
-    gap: 10px;
+.messages-container {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 10px;
+    background-color: #fff;
+}
 
-    &:last-child > a {
-        color: red;
-    }
+.message-input-container {
+    flex-shrink: 0;
+    padding: 10px;
+    border-top: 1px solid #ccc;
+    background-color: #f9f9f9;
 }
 
 .chat-noselected {

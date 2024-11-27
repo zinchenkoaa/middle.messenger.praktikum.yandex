@@ -5,9 +5,8 @@ import {addMessageToStore, parseAndStoreMessages} from "../utils/parseMessages/p
 
 const chatApi = new ChatApi();
 
-export default class MessageController implements MessageControllerInterface {
+class MessageController implements MessageControllerInterface {
     private socket: WebSocketTransport;
-
     public async start() {
         const baseURL = 'wss://ya-praktikum.tech/ws/chats';
 
@@ -31,7 +30,7 @@ export default class MessageController implements MessageControllerInterface {
                 console.log('Соединение закрыто');
             });
 
-            this.socket.on('message', (message: any) => {
+            this.socket.on('message', (message: Message) => {
                 if (Array.isArray(message)) {
                     parseAndStoreMessages(message, USER_ID)
                     console.log(store.getState())
@@ -44,15 +43,15 @@ export default class MessageController implements MessageControllerInterface {
             this.socket.on('pong', () => {});
 
             this.socket.connect();
-
-
         }
     }
 
-    public send(message: string) {
+    public send(message:string) {
         this.socket.send(JSON.stringify({
             content: message,
             type: "message"
         }))
     }
 }
+
+export default new MessageController();

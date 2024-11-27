@@ -5,7 +5,7 @@ import UserProfileController from "../../controller/userProfileController";
 import connect from "../../utils/store/connect";
 const userProfileController = new UserProfileController();
 
-export class Avatar extends Block {
+class Avatar extends Block {
     constructor(props: Indexed) {
         super({...props, events: {
                 click: () => this.triggerFileInput(),
@@ -45,4 +45,4 @@ function mapProfilePhotoToProps(state: State):Indexed {
     };
 }
 
-export default connect(Avatar,  mapProfilePhotoToProps);
+export default connect(Avatar, mapProfilePhotoToProps);

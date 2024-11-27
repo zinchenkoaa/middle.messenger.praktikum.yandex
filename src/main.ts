@@ -1,24 +1,20 @@
 import { Login } from "./modules/login";
 import { Registration } from "./modules/registration";
 import { Err } from "./pages/error";
-import { ProfileView } from "./modules/profileView";
-import { ProfileEdit } from "./modules/profileEdit";
 import { PasswordEdit } from "./modules/passwordEdit";
-import { Chat } from "./pages/chat";
 import Router from "./route/Router";
 import store, {StoreEvents} from "./utils/store/store";
 import AuthApi from "./api/auth";
+import Settings from "./pages/settings/settings";
+import Chat from "./pages/chat/chat";
+import ProfileEdit from "./modules/profileEdit/profileEdit";
 
 export default class Main {
-    private router;
-
     constructor() {
-        this.router = new Router('#root');
-        this.setupRoutes();
         store.on(StoreEvents.Updated, () => {});
     }
 
-    setupRoutes(): void {
+    render(): string {
         const requireLogin = (goTo: string ) => async () => {
             const userStore = store.getState('auth.user');
             if (!userStore) {
@@ -28,7 +24,7 @@ export default class Main {
                     if (userResponse.status === 200) {
                         console.log('store', store.getState())
                         store.set('auth.user', JSON.parse(userResponse.response));
-                        this.router.go(goTo);
+                        router.go(goTo);
                         return false;
                     }
                 } catch (error) {
@@ -36,7 +32,7 @@ export default class Main {
                 }
                 return true;
             }
-            this.router.go(goTo);
+            router.go(goTo);
             return false;
         };
 
@@ -54,7 +50,7 @@ export default class Main {
                 } catch (error) {
                     console.log('Ошибка авторизации', error)
                 }
-                this.router.go(goTo);
+                router.go(goTo);
                 return false;
             }
 
@@ -62,15 +58,16 @@ export default class Main {
         };
 
 
-
-        this.router
-            .use('/', Login, requireLogin('/chat'))
-            .use('/registration', Registration)
-            .use('/profile', ProfileView, requireAuth('/'))
+        const router = new Router('#root');
+        router
+            .use('/', Login, requireLogin('/messenger'))
+            .use('/sign-up', Registration)
+            .use('/settings', Settings)
             .use('/profile-edit', ProfileEdit)
             .use('/password-edit', PasswordEdit)
-            .use('/chat', Chat)
+            .use('/messenger', Chat,  requireAuth('/'))
             .use('/500', Err)
             .use('*', Err).start();
+        return ''
     }
 }

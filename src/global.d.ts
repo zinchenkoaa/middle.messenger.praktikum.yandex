@@ -43,7 +43,7 @@ interface FormState {
 type ChatItemSettings = {
     id: number,
     created_by: number,
-    last_message: string | null,
+    last_message: {content: string},
     title: string,
     avatar: string | null,
     unreaded_count: number,

@@ -114,7 +114,10 @@ export default class WebSocketTransport extends EventBus {
     }
 
     send(data: string): void {
+        console.log('WebSocket readyState:', this.socket?.readyState);
+
         if (this.socket && this.socket.readyState === WebSocket.OPEN) {
+            console.log('data', data)
             this.socket.send(data);
         } else {
             console.error('WebSocket is not open. Cannot send message');

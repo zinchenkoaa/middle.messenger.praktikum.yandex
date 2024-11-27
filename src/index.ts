@@ -3,5 +3,6 @@ import Main from "./main";
 
 
 document.addEventListener('DOMContentLoaded', () => {
-    new Main();
+    const main = new Main();
+    main.render()
 })

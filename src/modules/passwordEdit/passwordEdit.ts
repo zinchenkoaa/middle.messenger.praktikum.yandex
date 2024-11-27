@@ -52,7 +52,7 @@ export class PasswordEdit extends Block {
               btnTitle: 'Сохранить',
               controller: userPasswordController,
               linkTitle: 'Назад',
-              link: '/profile',
+              link: '/settings',
           })
       })
   }

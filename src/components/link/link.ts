@@ -5,8 +5,7 @@ import linkHtml from "./link.tmpl";
 
 interface LinkProps extends Props {
     text: string;
-
-    onClick?: (e: Event) => void,
+    onClick: (e: Event) => void,
 }
 
 export class Link extends Block {
@@ -17,11 +16,7 @@ export class Link extends Block {
                 click: (event: MouseEvent) => {
                     event.preventDefault();
 
-                    if (props.onClick) {
-                        props.onClick(event);
-                    } else {
-                        console.log('No onClick handler provided');
-                    }
+                    props.onClick(event)
                 },
             },
         });

@@ -3,12 +3,11 @@ import { CardContact } from "../../modules/cardContact";
 import { Block } from "../../utils/block";
 import contactContainerHtml from "./contactContainer.tmpl";
 import ChatsController from "../../controller/chatsController";
-import MessagesController from '../../controller/messagesController';
 import store from "../../utils/store/store";
 import connect from "../../utils/store/connect";
+import messagesController from "../../controller/messagesController";
 
 const chatsController = new ChatsController();
-const messagesController = new MessagesController();
 
 type ChatListSettings = {
     chats: ChatItemSettings[]
