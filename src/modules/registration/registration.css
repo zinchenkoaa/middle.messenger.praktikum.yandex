@@ -1,0 +1,32 @@
+.registration-form {
+    display: flex;
+    flex-direction: column;
+    place-content: space-between space-between;
+}
+
+.registration-footer {
+    margin-top: 45px;
+}
+
+.registration {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background: #FFF;
+}
+
+.registration-container {
+    background: #FFF;
+    box-shadow: 0 0 6px 0 #00000024;
+    border-radius: 12px;
+    padding: 50px 30px;
+}
+
+.error-message {
+    color: red;
+    margin-top: 7px;
+    font-size: 8px;
+    line-height: 8px;
+}

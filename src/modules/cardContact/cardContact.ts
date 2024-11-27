@@ -4,18 +4,24 @@ import { Time } from "../../components/time";
 import { Block } from "../../utils/block";
 import cardContactHtml from "./cardContact.tmpl";
 
-export class CardContact extends Block {
-    constructor(props: ChatItemSettings) {
+type CardContactProps = {
+    contactName: string; 
+    contactMessageCount?: string; 
+    contactLastMessageTime: string; 
+    message?: string;
+    messageInit?: Message;
+    contactTime?: Time
+} & Record<string, unknown>
+
+export class CardContact extends Block<CardContactProps> {
+    constructor(props: CardContactProps) {
         super({...props,
-            events: {
-                click: (e :Event) => props.onClick && props.onClick(e)
-            },
-            messageInit: new Message({ textMessage: props.last_message?.content ?? '', className: "last-message" }),
-            contactTime: new Time({ time: '22:22', className: "card-time" }),
+            messageInit: new Message({ textMessage: props.message ?? '', className: "last-message" }),
+            contactTime: new Time({ time: props.contactLastMessageTime, className: "card-time" }),
         })
     }
 
-    public render(): string {
+    protected render(): string {
         return cardContactHtml;
     }
 }

@@ -1,14 +1,47 @@
-.side-panel {
+.profile-view-links {
+    margin-top: 20px;
+}
+
+.profile-view-link {
+    padding: 10px 0;
+}
+
+.profile-view-link-logout {
+    border-bottom: none;
+
+    a {
+        color: red;
+    }
+}
+
+.profile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background: #FFF;
+}
+
+.profile-container {
     background: #FFF;
     box-shadow: 0 0 6px 0 #00000024;
     border-radius: 12px;
     padding: 50px 30px;
 }
 
-.profile-info {
+.profile-header {
+    font-weight: 500;
+    font-size: 20px;
     color: black;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 25px;
 }
 
-.profile-info-item {
-    margin-bottom: 0;
+.error-message {
+    color: red;
+    margin-top: 7px;
+    font-size: 8px;
+    line-height: 8px;
 }

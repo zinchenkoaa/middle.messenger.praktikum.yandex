@@ -6,7 +6,7 @@ export default `
     <div class="contact-info">
         <div class="contact-header">
             <div class="contact-card-info">
-                <span class="contact-name">{{ title }}</span>
+                <span class="contact-name">{{ contactName }}</span>
 
                 {{#if messageInit}}
                     {{{ messageInit }}}

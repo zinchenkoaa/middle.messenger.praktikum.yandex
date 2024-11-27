@@ -1,6 +1,11 @@
 export default`
 <div class="contact-container">
-    {{{ test }}}
-    {{{ chatItemsList }}}
+    {{{ contactOne }}}
+    {{{ contactTwo }}}
+    {{{ contactThree }}}
+    {{{ contactFour }}}
+    {{{ contactFive }}}
+    {{{ contactSix }}}
+    {{{ contactSeven }}}
 </div>
 `

@@ -4,72 +4,32 @@ import { Button } from "../../components/button";
 import { Input } from "../../components/input";
 import messageInputHtml from "./messageInput.tmpl";
 import { Block } from "../../utils/block";
-import {formValidation, validationRules} from "../../utils/formValidation";
 
-const createOnEnterHandler = (
-    controller: MessageControllerInterface,
-    getMessage: () => string
-) => (e: KeyboardEvent): void => {
-    const target = e.target as HTMLInputElement;
-    if (e.key === 'Enter') {
-        const message = getMessage();
-        const validate = formValidation(validationRules);
-        const error = validate('message', message);
-        if (error) {
-            alert(error);
-        } else {
-            controller.send(message);
-            target.value = ''; // Очистка поля после отправки
-        }
-    }
-}
-
-export class MessageInput extends Block {
-    private controller: MessageControllerInterface;
-
-    constructor(props: Indexed) {
-        const controller = props.controller as MessageControllerInterface;
-
-        console.log(props.controller);
-
-        const getMessage = () => {
-            const inputElement = this.children.input.element as HTMLInputElement;
-            return inputElement ? inputElement.value : '';
-        };
-
+export class MessageInput extends Block<Record<string, unknown>> {
+    constructor() {
         super({
-            ...props,
-            input: new Input({
-                type: "text",
-                name: "message",
-                inputClass: "message-field",
-                placeholder: "Введите сообщение...",
-                onEnter: createOnEnterHandler(controller, getMessage),
+            sendInput: new Input({ 
+                type: "text", 
+                name: "message", 
+                className: "message-field", 
+                placeholder: "Введите сообщение..." 
             }),
-            sendButton: new Button({
-                className: "send-btn",
-                label: `<img src="${send}" />`,
-                onClick: () => this.handleSendMessage(),
+            imageButton: new Button({ 
+                className: "image-btn", 
+                label: "📷" 
             }),
-        });
-        this.controller = controller;
+            sendButton: new Button({ 
+                className: "send-btn", 
+                label: `<img src="${send}" />` 
+            }),
+            emojiButton:  new Button({ 
+                className: "emoji-btn", 
+                label: "😊" 
+            })
+        })
     }
 
-    private handleSendMessage(): void {
-        const inputElement = this.children.input.element as HTMLInputElement;
-        const message = inputElement ? inputElement.value : '';
-
-        const validate = formValidation(validationRules);
-        const error = validate('message', message);
-        if (error) {
-            alert(error);
-        } else {
-            this.controller.send(message);
-            inputElement.value = ''; // Очистка поля после отправки
-        }
-    }
-
-    public render(): string {
+    override render(): string {
         return messageInputHtml
     }
 }
