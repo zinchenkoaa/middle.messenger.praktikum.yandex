@@ -1,16 +1,16 @@
 export default `
-<div>
+<div class="input-wrapper">
     {{#if text }}
         <label for="{{ text }}" class="input-label">{{ text }}</label>
     {{/if}}
 
-    <input 
+    <input
         id="{{ name }}"
         data-id="{{ _id }}"
         data-validation-type="{{ validationType }}"
-        type="{{ type }}" 
-        name="{{ name }}" 
-        class={{ className }}
+        type="{{ type }}"
+        name="{{ name }}"
+        class={{ inputClass }}
         {{#if value}}
             value = "{{ value }}"
         {{/if}}
@@ -24,5 +24,5 @@ export default `
         disabled
         {{/if}}
      />
-    </div>
+</div>
 `

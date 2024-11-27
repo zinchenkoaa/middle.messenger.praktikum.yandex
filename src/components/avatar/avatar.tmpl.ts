@@ -1,11 +1,7 @@
-import noAvatar from "../../static/noAvatar.svg";
-
 export default `
 <div class="ava">
-    <img src="${noAvatar}" alt="Аватар" class="ava-img">
+    <img src="https://ya-praktikum.tech/api/v2/resources/{{avatar}}" alt="Аватар" class="ava-img">
 
-    {{#if changeAva}}
-        <div class="ava-overlay">Cменять аватар</div>
-    {{/if}}
+    <input type="file" name="ava" accept="image/*" hidden/>
 </div>
 `

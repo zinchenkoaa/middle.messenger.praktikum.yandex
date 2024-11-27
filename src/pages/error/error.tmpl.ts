@@ -7,9 +7,9 @@ export default `
     <div class="error-text">
         {{ errorText }}
     </div>
-    
+
     <div class="error-link">
-        <a href="/chat">Назад к чатам</a>
+        <a href="/messenger">Назад к чатам</a>
     </div>
 </main>
 `

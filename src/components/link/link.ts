@@ -4,10 +4,24 @@ import type { Props } from "../../types";
 import linkHtml from "./link.tmpl";
 
 interface LinkProps extends Props {
-    href: string;
+    text: string;
+    onClick: (e: Event) => void,
 }
 
-export class Link extends Block<LinkProps> {
+export class Link extends Block {
+    constructor(props: LinkProps) {
+        super({
+            ...props,
+            events: {
+                click: (event: MouseEvent) => {
+                    event.preventDefault();
+
+                    props.onClick(event)
+                },
+            },
+        });
+    }
+
     render(): string {
         return linkHtml;
     }

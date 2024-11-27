@@ -4,11 +4,11 @@
     place-content: space-between space-between;
 }
 
-.login-footer {
+.form-footer {
     margin-top: 45px;
 }
 
-.login {
+.form-wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -17,14 +17,14 @@
     background: #FFF;
 }
 
-.login-container {
+.form-container {
     background: #FFF;
     box-shadow: 0 0 6px 0 #00000024;
     border-radius: 12px;
     padding: 50px 30px;
 }
 
-.login-header {
+.form-header {
     font-weight: 500;
     font-size: 20px;
     color: black;
@@ -38,4 +38,13 @@
     margin-top: 7px;
     font-size: 8px;
     line-height: 8px;
+}
+
+.header {
+    font-weight: 500;
+    font-size: 20px;
+    color: black;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 25px;
 }
