@@ -3,7 +3,7 @@ import ChatApi from "../api/chat";
 
 const chatApi = new ChatApi();
 
-export default class ModalCreateChatController implements FormController {
+class CreateChatController implements FormController {
     public async createChat() {
         try {
             const value = store.getState('ui.modalActive.value');
@@ -25,3 +25,5 @@ export default class ModalCreateChatController implements FormController {
         this.createChat();
     }
 }
+
+export default new CreateChatController();

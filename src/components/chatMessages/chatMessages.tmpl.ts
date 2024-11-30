@@ -1,7 +1,8 @@
 export default `
 <div class="all-message">
     {{#if currentChatId}}
-        <header class="message-header">
+        <div class="content-wrapper">
+                <header class="message-header">
             {{{chatProfile}}}
             {{{usersDr}}}
             <span class="close-chat">
@@ -10,10 +11,10 @@ export default `
             </span>
         </header>
 
-        <div class="content-wrapper">
             <div class="messages-container">
                 {{{Messages}}}
             </div>
+
             <div class="message-input-container">
                 {{{messageInput}}}
             </div>

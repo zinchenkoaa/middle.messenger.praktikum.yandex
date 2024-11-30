@@ -1,13 +1,13 @@
 import { Login } from "./modules/login";
 import { Registration } from "./modules/registration";
 import { Err } from "./pages/error";
-import { PasswordEdit } from "./modules/passwordEdit";
 import Router from "./route/Router";
 import store, {StoreEvents} from "./utils/store/store";
 import AuthApi from "./api/auth";
 import Settings from "./pages/settings/settings";
 import Chat from "./pages/chat/chat";
 import ProfileEdit from "./modules/profileEdit/profileEdit";
+import PasswordEdit from "./modules/passwordEdit/passwordEdit";
 
 export default class Main {
     constructor() {

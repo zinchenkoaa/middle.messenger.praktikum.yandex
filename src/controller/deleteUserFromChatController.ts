@@ -3,7 +3,7 @@ import ChatApi from "../api/chat";
 
 const chatApi = new ChatApi();
 
-export default class DeleteUserFromChatController implements FormController {
+class DeleteUserFromChatController implements FormController {
     public async deleteUser() {
         try {
             const userId = store.getState('ui.modalActive.value');
@@ -22,3 +22,5 @@ export default class DeleteUserFromChatController implements FormController {
         this.deleteUser();
     }
 }
+
+export default new DeleteUserFromChatController();

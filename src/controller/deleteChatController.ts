@@ -4,7 +4,7 @@ import store from "../utils/store/store";
 
 const chatApi = new ChatApi();
 
-export default class DeleteChatController implements FormController {
+class DeleteChatController implements FormController {
     public async deleteChat() {
         try {
             const chatId = store.getState('ui.currentChatId');
@@ -29,3 +29,5 @@ export default class DeleteChatController implements FormController {
         this.deleteChat();
     }
 }
+
+export default new DeleteChatController();

@@ -1,6 +1,5 @@
 .all-message {
     width: 100%;
-    height: 100vh;
     display: flex;
     flex-direction: column;
 }
@@ -14,15 +13,18 @@
 
 .content-wrapper {
     flex-grow: 1;
+    flex-basis: 0; /* Убедитесь, что высота зависит от родителя */
     display: flex;
     flex-direction: column;
+    height: 100vh;
 }
 
 .messages-container {
-    flex-grow: 1;
+    flex: 1; /* Занимает всё доступное место */    max-height: calc(100vh - 70px - 60px); /* Высота экрана минус header и input */
     overflow-y: auto;
-    padding: 10px;
-    background-color: #fff;
+    padding: 10px; /* Внутренние отступы */
+    box-sizing: border-box; /* Учитывать отступы в размерах */
+    background-color: #fff; /* Фон сообщений */
 }
 
 .message-input-container {

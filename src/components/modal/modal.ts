@@ -38,7 +38,10 @@ class ModalAdd extends Block {
     private setEvents() {
         this.setProps({
             events: {
-                click: this.handleClickOutside.bind(this),
+                click: (e: MouseEvent) => {
+                    this.handleClickOutside(e); // Закрытие при клике вне модального окна
+                    this.handleCloseButtonClick(e); // Закрытие при клике на кнопку
+                },
             }
         });
     }
@@ -50,11 +53,22 @@ class ModalAdd extends Block {
         }
     }
 
+    private handleCloseButtonClick(e: MouseEvent): void {
+        const target = e.target as HTMLElement;
+        if (target.classList.contains('modal-close')) {
+            store.set('ui.modalActive.name', null); // Закрытие модалки
+        }
+    }
+
     public render(): string {
         const isActive = this.props.modalName === this.props.modalNameActive;
         const modalClass = isActive ? 'modal-area modal-open' : 'modal-area'
         return `<div class="${modalClass}">
               <div class="modal-container">
+              <div class="close">
+
+              <button class="modal-close">&times;</button>
+</div>
                   <h3>{{title}}</h1>
                   {{#unless inputHidden}}
                     {{{input}}}

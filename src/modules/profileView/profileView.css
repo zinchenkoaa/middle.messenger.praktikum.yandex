@@ -5,10 +5,17 @@
     padding: 50px 30px;
 }
 
-.profile-info {
+.profile-info-data {
     color: black;
 }
 
 .profile-info-item {
     margin-bottom: 0;
+}
+
+.profile-btn {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }

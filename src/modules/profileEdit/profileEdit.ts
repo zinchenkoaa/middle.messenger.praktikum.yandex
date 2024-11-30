@@ -8,9 +8,12 @@ import connect from "../../utils/store/connect";
 import Form from "../../components/form/form";
 import UserProfileController from "../../controller/userProfileController";
 import Avatar from "../../components/avatar/avatar";
+import Router from "../../route/Router";
 
 const validate = formValidation(validationRules);
 const userProfileController = new UserProfileController();
+
+const router = new Router('#root');
 
 function mapStateToProps(state: Indexed): Indexed {
     const user = (state as State).auth.user != null ? (state as State).auth.user : {};
@@ -91,6 +94,10 @@ export default class ProfileEdit extends Block {
                 btnTitle: 'Сохранить',
                 linkTitle: 'Назад',
                 link: '/settings',
+                onClickLink: (e: any) => {
+                    e.preventDefault();
+                    router.back()
+                },
                 showButton: true,
                 controller: userProfileController,
                 avatar: new Avatar({}),
