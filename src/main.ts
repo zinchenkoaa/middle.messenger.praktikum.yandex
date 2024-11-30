@@ -1,6 +1,5 @@
 import { Login } from "./modules/login";
 import { Registration } from "./modules/registration";
-import { Err } from "./pages/error";
 import Router from "./route/Router";
 import store, {StoreEvents} from "./utils/store/store";
 import AuthApi from "./api/auth";
@@ -8,6 +7,8 @@ import Settings from "./pages/settings/settings";
 import Chat from "./pages/chat/chat";
 import ProfileEdit from "./modules/profileEdit/profileEdit";
 import PasswordEdit from "./modules/passwordEdit/passwordEdit";
+import Page404 from "./pages/404/404";
+import Page500 from "./pages/500/500";
 
 export default class Main {
     constructor() {
@@ -62,12 +63,12 @@ export default class Main {
         router
             .use('/', Login, requireLogin('/messenger'))
             .use('/sign-up', Registration)
-            .use('/settings', Settings)
-            .use('/profile-edit', ProfileEdit)
-            .use('/password-edit', PasswordEdit)
+            .use('/settings', Settings, requireAuth('/'))
+            .use('/profile-edit', ProfileEdit, requireAuth('/'))
+            .use('/password-edit', PasswordEdit, requireAuth('/'))
             .use('/messenger', Chat,  requireAuth('/'))
-            .use('/500', Err)
-            .use('*', Err).start();
+            .use('/500', Page500)
+            .use('/404', Page404).start();
         return ''
     }
 }

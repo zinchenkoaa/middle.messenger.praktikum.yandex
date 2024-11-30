@@ -54,8 +54,14 @@ export default class Router {
 
     async _onRoute(pathname: string) {
         const routeData = this.getRoute(pathname);
+
         if (!routeData) {
             console.error(`Route not found for pathname: ${pathname}`);
+            const notFoundRoute = this.getRoute('/404');
+            if (notFoundRoute) {
+                this._currentRoute = notFoundRoute.route;
+                notFoundRoute.route.render();
+            }
             return;
         }
 
@@ -75,10 +81,19 @@ export default class Router {
         }
 
         this._currentRoute = route || null;
-        if(route) {
-            route.render();
-        }
 
+        try {
+            if (route) {
+                route.render();
+            }
+        } catch (error) {
+            console.error('Error during route rendering:', error);
+            const errorRoute = this.getRoute('/500');
+            if (errorRoute) {
+                this._currentRoute = errorRoute.route;
+                errorRoute.route.render();
+            }
+        }
     }
 
     go(pathname: string) {
@@ -89,10 +104,8 @@ export default class Router {
     }
 
     back() {
-        // if (this.history) {
             this.history.back();
             this._onRoute(window.location.pathname); // Перерендер маршрута
-        // }
     }
 
     forward() {
