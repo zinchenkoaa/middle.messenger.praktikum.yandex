@@ -59,8 +59,13 @@ export default class WebSocketTransport extends EventBus {
     private onMessage(event: MessageEvent): void {
         const data = event.data;
         if (this.isValidJSON(data)) {
-            const message = JSON.parse(data);
-            this.emit(WebSocketEvents.MESSAGE, message);
+            try {
+                const message = JSON.parse(data);
+                this.emit(WebSocketEvents.MESSAGE, message);
+            } catch (error) {
+                console.error('Error parsing JSON message:', error);
+                this.emit(WebSocketEvents.ERROR, { error, data });
+            }
         } else {
             console.warn('Received non-JSON message:', data);
             this.emit(WebSocketEvents.MESSAGE, data);

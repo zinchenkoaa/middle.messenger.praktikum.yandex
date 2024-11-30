@@ -4,9 +4,12 @@ import { Block } from "../../utils/block";
 import { formValidation, validationRules} from "../../utils/formValidation/formValidation";
 import UserPasswordController from "../../controller/userPasswordController";
 import Form from "../../components/form/form";
+import Router from "../../route/Router";
 
 const userPasswordController = new UserPasswordController();
 const validate = formValidation(validationRules);
+
+const router = new Router('#root');
 
 const inputGroupList: InputGroupSettings[] = [
     {
@@ -41,7 +44,7 @@ const inputGroupList: InputGroupSettings[] = [
     }
 ];
 
-export class PasswordEdit extends Block {
+export default class PasswordEdit extends Block {
   constructor() {
       super({
           Form: new Form({
@@ -53,6 +56,10 @@ export class PasswordEdit extends Block {
               controller: userPasswordController,
               linkTitle: 'Назад',
               link: '/settings',
+              onClickLink: (e: any) => {
+                  e.preventDefault();
+                  router.back()
+              },
           })
       })
   }

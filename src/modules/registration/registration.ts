@@ -3,9 +3,12 @@ import { Block } from "../../utils/block";
 import UserRegistrationController from '../../controller/userRegistrationController';
 import Form from "../../components/form/form";
 import {formValidation, validationRules} from "../../utils/formValidation";
+import Router from "../../route/Router";
 
 const userRegistrationController = new UserRegistrationController();
 const validate = formValidation(validationRules);
+
+const router = new Router('#root');
 
 const inputGroupList: InputGroupSettings[] = [
     {
@@ -91,7 +94,7 @@ export class Registration extends Block {
               controller: userRegistrationController,
               btnTitle: 'Зарегистрироваться',
               linkTitle: 'Войти',
-              link: '/',
+              onClickLink: () => router.go('/'),
           })
       })
   };

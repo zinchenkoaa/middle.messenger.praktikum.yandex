@@ -15,7 +15,7 @@ export default class Router {
 
     protected routes: RouteWithMiddleware[];
 
-    protected history;
+    protected history: History;
 
     protected _currentRoute: Route | null;
 
@@ -52,7 +52,7 @@ export default class Router {
         this._onRoute(window.location.pathname);
     }
 
-    async _onRoute(pathname:string) {
+    async _onRoute(pathname: string) {
         const routeData = this.getRoute(pathname);
         if (!routeData) {
             console.error(`Route not found for pathname: ${pathname}`);
@@ -89,9 +89,10 @@ export default class Router {
     }
 
     back() {
-        if (this.history) {
+        // if (this.history) {
             this.history.back();
-        }
+            this._onRoute(window.location.pathname); // Перерендер маршрута
+        // }
     }
 
     forward() {

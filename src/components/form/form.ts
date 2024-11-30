@@ -5,7 +5,6 @@ import {Button} from "../button";
 import "./form.css";
 import formTmpl from "./form.tmpl";
 import InputGroup from "../inputGroup/inputGroup";
-import Router from "../../route/Router";
 import {Link} from "../link";
 
 type FormSettings = {
@@ -19,33 +18,36 @@ type FormSettings = {
     validate: (name:string, value: string | number) => string | null;
     bgdForm?: string;
     btnStyle?: string;
+    onClickLink: () => void;
     controller?: FormController
 }
-
-const router = new Router('#root');
 
 class Form extends Block {
     constructor(props: FormSettings) {
         const onChange = (e: Event): void => {
             const target = e.target as HTMLInputElement;
             const { name, value } = target;
-            console.log(name, value);
+
+            // Обновляем состояние в store
             store.set(name, value);
-            console.log('value', value);
-        }
+        };
 
         const onBlur = (e: Event): void => {
             const target = e.target as HTMLInputElement;
             const { name, value } = target;
-            const index = props.inputGroupList.findIndex((prop) => prop.name === name);
-            if (index != -1) {
-                const error = props.validate(name, value);
-                this.lists.inputGroupList[index].setProps({ error });
-            }
-        }
 
-        const onSubmit = (e:Event):void => {
+            // Проверяем, существует ли поле в inputGroupList
+            const index = props.inputGroupList.findIndex((prop) => prop.name === name);
+            if (index !== -1) {
+                // Выполняем валидацию
+                const error = props.validate(name, value);
+                this.props.inputGroupList[index].setProps({ error });
+            }
+        };
+
+        const onSubmit = (e: Event): void => {
             e.preventDefault();
+
             const rootElement = this.getContent();
             const form = rootElement?.querySelector('form') as HTMLFormElement;
 
@@ -54,18 +56,19 @@ class Form extends Block {
                 return;
             }
 
-            // Создать FormData из формы
+            // Создаем FormData из формы
             const formData = new FormData(form);
-
-
             let isFormDataValid = true;
 
+            // Проверяем все поля формы
             props.inputGroupList.forEach(({ name }) => {
                 const value = formData.get(name) as string || '';
                 const index = props.inputGroupList.findIndex((prop) => prop.name === name);
-                if (index != -1) {
+
+                if (index !== -1) {
                     const error = props.validate(name, value);
-                    this.lists.inputGroupList[index].setProps({ error });
+                    this.props.inputGroupList[index].setProps({ error });
+
                     if (error) {
                         isFormDataValid = false;
                     }
@@ -73,25 +76,27 @@ class Form extends Block {
             });
 
             if (!isFormDataValid) {
-                console.log('Form  data is not valid')
+                console.log('Form data is not valid');
                 return;
             }
-            console.log('formData', Object.fromEntries(formData));
-            props.controller?.onSubmit(Object.fromEntries(formData));
-        }
 
-        const onClickLink = (): void => {
-            router.go(props.link || '')
-        }
+            // Отправка данных
+            const data = Object.fromEntries(formData);
+            console.log('FormData:', data);
 
-        const inputGroupList: Block[] = props.inputGroupList
-            .map((prop) => ({
+            props.controller?.onSubmit(data);
+        };
+
+        // Создаем InputGroup для каждого поля
+        const inputGroupList: Block[] = props.inputGroupList.map((prop) => {
+            return new InputGroup({
                 ...prop,
-                onBlur: onBlur,
-                onChange: onChange,
-            }))
-            .map((prop) => (new InputGroup(prop)))
+                onBlur,
+                onChange,
+            });
+        });
 
+        // Передаем дополнительные параметры в родительский класс
         super({
             ...props,
             inputGroupList,
@@ -101,10 +106,10 @@ class Form extends Block {
             }),
             showButton: props.showButton || false,
             link: new Link({
-                text:  props.linkTitle || '',
-                onClick: onClickLink,
-            })
-        })
+                text: props.linkTitle || '',
+                onClick: props.onClickLink,
+            }),
+        });
     }
 
     public render(): string {
