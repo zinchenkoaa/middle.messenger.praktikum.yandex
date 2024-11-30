@@ -27,27 +27,23 @@ class Form extends Block {
         const onChange = (e: Event): void => {
             const target = e.target as HTMLInputElement;
             const { name, value } = target;
-
-            // Обновляем состояние в store
+            console.log(name, value);
             store.set(name, value);
-        };
+            console.log('value', value);
+        }
 
         const onBlur = (e: Event): void => {
             const target = e.target as HTMLInputElement;
             const { name, value } = target;
-
-            // Проверяем, существует ли поле в inputGroupList
             const index = props.inputGroupList.findIndex((prop) => prop.name === name);
-            if (index !== -1) {
-                // Выполняем валидацию
+            if (index != -1) {
                 const error = props.validate(name, value);
-                this.props.inputGroupList[index].setProps({ error });
+                this.lists.inputGroupList[index].setProps({ error });
             }
-        };
+        }
 
-        const onSubmit = (e: Event): void => {
+        const onSubmit = (e:Event):void => {
             e.preventDefault();
-
             const rootElement = this.getContent();
             const form = rootElement?.querySelector('form') as HTMLFormElement;
 
@@ -56,19 +52,18 @@ class Form extends Block {
                 return;
             }
 
-            // Создаем FormData из формы
+            // Создать FormData из формы
             const formData = new FormData(form);
+
+
             let isFormDataValid = true;
 
-            // Проверяем все поля формы
             props.inputGroupList.forEach(({ name }) => {
                 const value = formData.get(name) as string || '';
                 const index = props.inputGroupList.findIndex((prop) => prop.name === name);
-
-                if (index !== -1) {
+                if (index != -1) {
                     const error = props.validate(name, value);
-                    this.props.inputGroupList[index].setProps({ error });
-
+                    this.lists.inputGroupList[index].setProps({ error });
                     if (error) {
                         isFormDataValid = false;
                     }
@@ -76,25 +71,21 @@ class Form extends Block {
             });
 
             if (!isFormDataValid) {
-                console.log('Form data is not valid');
+                console.log('Form  data is not valid')
                 return;
             }
-
-            // Отправка данных
-            const data = Object.fromEntries(formData);
-            console.log('FormData:', data);
-
-            props.controller?.onSubmit(data);
-        };
+            console.log('formData', Object.fromEntries(formData));
+            props.controller?.onSubmit(Object.fromEntries(formData));
+        }
 
         // Создаем InputGroup для каждого поля
-        const inputGroupList: Block[] = props.inputGroupList.map((prop) => {
-            return new InputGroup({
+        const inputGroupList: Block[] = props.inputGroupList
+            .map((prop) => ({
                 ...prop,
-                onBlur,
-                onChange,
-            });
-        });
+                onBlur: onBlur,
+                onChange: onChange,
+            }))
+            .map((prop) => (new InputGroup(prop)))
 
         // Передаем дополнительные параметры в родительский класс
         super({
