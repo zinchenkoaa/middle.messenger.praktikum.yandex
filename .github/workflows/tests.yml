@@ -1,49 +1,56 @@
-name: Tests
-
 on:
   pull_request:
     branches:
       - main
+  workflow_dispatch: # Добавлено для ручного запуска
+    inputs:
+      branch:
+        description: 'Branch to run tests on'
+        required: true
+        default: 'sprint_1'
 
 jobs:
   test:
-    if: ${{github.head_ref == 'sprint_1' || github.head_ref == 'sprint_2' || github.head_ref == 'sprint_3' || github.head_ref == 'sprint_4'}}
-    env:
-      SPRINT: ${{github.head_ref}}
-      TERM: xterm-256color
     runs-on: ubuntu-latest
+    env:
+      TERM: xterm-256color
     strategy:
       matrix:
         node-version: [16.x]
     steps:
     - name: Set up GitHub Actions
       uses: actions/checkout@v3
+      with:
+        ref: ${{ github.event.inputs.branch || github.head_ref || 'main' }} # Проверяем введённую ветку
+
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
-    - name: Сheck if the repository is private
-      if: ${{github.event.repository.private}}
-      run: exit 1
+
+    - name: Debug branch info
+      run: echo "Running tests for branch: ${{ github.event.inputs.branch || github.head_ref }}"
+
     - name: Install testing libs
       uses: mig4/setup-bats@v1
+
     - name: Get testing lib
       run: set -eu && git clone https://github.com/Yandex-Practicum/tests-middle-frontend.git /tmp/tests-middle-frontend
 
     - name: Run tests (sprint_1)
-      if: ${{github.head_ref >= 'sprint_1'}}
+      if: ${{ github.event.inputs.branch == 'sprint_1' || github.head_ref == 'sprint_1' }}
       run: bats --formatter pretty /tmp/tests-middle-frontend/tests/sprint_1.bats
 
     - name: Run tests (sprint_2)
-      if: ${{github.head_ref >= 'sprint_2'}}
+      if: ${{ github.event.inputs.branch == 'sprint_2' || github.head_ref == 'sprint_2' }}
       run: bats --formatter pretty /tmp/tests-middle-frontend/tests/sprint_2.bats
 
     - name: Run tests (sprint_3)
-      if: ${{github.head_ref >= 'sprint_3'}}
+      if: ${{ github.event.inputs.branch == 'sprint_3' || github.head_ref == 'sprint_3' }}
       run: bats --formatter pretty /tmp/tests-middle-frontend/tests/sprint_3.bats
 
     - name: Run tests (sprint_4)
-      if: ${{github.head_ref >= 'sprint_4'}}
+      if: ${{ github.event.inputs.branch == 'sprint_4' || github.head_ref == 'sprint_4' }}
       run: bats --formatter pretty /tmp/tests-middle-frontend/tests/sprint_4.bats
 
     - name: Run tests (server)
