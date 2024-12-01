@@ -2,43 +2,25 @@ import { Block } from "../../utils/block";
 import inputHtml from "./input.tmpl";
 import "./input.css";
 
-type InputProps = {
-    name?: string;
-    text?: string;
-    type?: string;
-    className?: string;
-    value?: string;
-    placeholder?: string;
-    required?: boolean;
-    disabled?: boolean;
-    errorMessage?: string;
-    validationType?: string;
-    isProfile?: boolean;
-    onBlur?: (e: Event) => void,
-    onChange?: (e: Event) => void,
-  } & Record<string, unknown>
-  
-  export class Input extends Block<InputProps> {
-    constructor(props: InputProps) {
-      super({...props,       
-        events: {
-          blur: (e: Event) => {
-            if (props.onBlur) { 
-              props.onBlur(e);
-            }
-          },
-          change: (e: Event) => {
-            if (props.onChange) {
-              props.onChange(e);
-            }
-          },
-        },
+  export class Input extends Block {
+    constructor(props: InputSettings) {
+      super({
+          ...props,
+            inputClass: props.inputClass || 'input-type',
+            events: {
+                blur: (e :Event) => props.onBlur && props.onBlur(e),
+                change: (e :Event) => props.onChange && props.onChange(e),
+                keyup: (e :Event) => props.onEnter && props.onEnter(e),
+                input: (e :Event) => props.onInput && props.onInput(e)
+            },
       });
     }
-  
-    override render(): string {
 
+      public get element(): HTMLInputElement {
+          return this.getContent().querySelector('input') as HTMLInputElement;
+      }
 
+    public render(): string {
       return inputHtml;
     }
 }

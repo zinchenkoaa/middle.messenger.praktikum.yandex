@@ -14,22 +14,3 @@
     padding: 10px;
     box-sizing: border-box;
 }
-
-.all-message {
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.all-message > div:first-child {
-    flex-grow: 1;
-    display: flex;
-}
-
-.container {
-    display: flex;
-    flex-direction: column;
-    position: relative;
-}
