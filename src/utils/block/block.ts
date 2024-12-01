@@ -248,6 +248,10 @@ export class Block {
         return document.createElement(tagName) as HTMLTemplateElement;
     }
 
+    public getProps(): Record<string, any> {
+        return this.props;
+    }
+
     public show(): void {
         const content = this.getContent();
         if (content) {
