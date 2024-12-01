@@ -1,11 +1,9 @@
 export default `
 <div class="message-input">
-    {{{ imageButton }}}
+<div class="message-i">
+    {{{ input }}}
+</div>
 
-    {{{ sendInput }}}
-    
     {{{ sendButton }}}
-
-    {{{ emojiButton }}}
 </div>
 `;

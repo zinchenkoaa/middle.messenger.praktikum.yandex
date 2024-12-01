@@ -2,10 +2,24 @@
     display: flex;
     align-items: center;
     padding: 10px;
-    border-top: 1px solid #ccc;
     background-color: #f9f9f9;
     width: 100%;
+    gap: 10px;
     max-width: none;
     margin: 0;
     box-sizing: border-box;
+}
+
+.message-i {
+    flex-grow: 1; /* Заставляет input занимать всё доступное пространство */
+}
+
+.message-i input {
+    width: 100%; /* Обеспечивает ширину input внутри .message-i */
+    padding: 10px; /* Отступы внутри input */
+    border: 1px solid #ccc; /* Граница */
+    border-radius: 4px; /* Закругление углов */
+    box-sizing: border-box; /* Учитывает padding и border в ширине */
+    display: flex;
+    text-align: start;
 }

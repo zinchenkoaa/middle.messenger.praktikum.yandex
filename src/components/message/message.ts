@@ -1,15 +1,23 @@
 import "./message.css";
-import type { Props } from "../../types";
 import { Block } from "../../utils/block";
-import messageHtml from "./message.tmpl";
 
-interface MessageProps extends Props {
-    textMessage: string;
-    className: string;
-}
+export class Message extends Block {
+    private truncateMessage(text: string, maxLength: number, contM: boolean): string {
+        if (contM && text.length > maxLength) {
+            return text.slice(0, maxLength) + '...';
+        }
+        return text;
+    }
 
-export class Message extends Block<MessageProps> {
-    render(): string {
-        return messageHtml;
+    public render(): string {
+        // Получаем свойства
+        const { textMessage, contM = false } = this.props;
+
+        // Обрезаем сообщение, если нужно
+        const truncatedMessage = this.truncateMessage(textMessage, 20, contM);
+
+        return `
+<p class="{{ className }}">${truncatedMessage}</p>
+`;
     }
 }

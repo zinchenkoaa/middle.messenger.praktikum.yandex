@@ -1,10 +1,9 @@
 import "./search.css";
 import linkHtml from "./search.tmpl"
-import type { Props } from "../../types";
 import { Block } from "../../utils/block";
 
-export class Search extends Block<Props> {
+export class Search extends Block {
     render(): string {
-      return linkHtml; 
+      return linkHtml;
     }
 }

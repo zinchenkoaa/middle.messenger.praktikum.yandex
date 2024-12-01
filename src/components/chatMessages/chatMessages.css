@@ -1,0 +1,42 @@
+.all-message {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.message-header {
+    flex-shrink: 0;
+    background-color: #f4f4f4;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.content-wrapper {
+    flex-grow: 1;
+    flex-basis: 0; /* Убедитесь, что высота зависит от родителя */
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.messages-container {
+    flex: 1; /* Занимает всё доступное место */    max-height: calc(100vh - 70px - 60px); /* Высота экрана минус header и input */
+    overflow-y: auto;
+    padding: 10px; /* Внутренние отступы */
+    box-sizing: border-box; /* Учитывать отступы в размерах */
+    background-color: #fff; /* Фон сообщений */
+}
+
+.message-input-container {
+    flex-shrink: 0;
+    padding: 10px;
+    border-top: 1px solid #ccc;
+    background-color: #f9f9f9;
+}
+
+.chat-noselected {
+    color: #1a1a1a;
+    justify-content: center;
+    margin-top: 40px;
+    display: flex;
+}

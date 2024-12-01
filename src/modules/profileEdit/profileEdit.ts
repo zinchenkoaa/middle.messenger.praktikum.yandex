@@ -1,222 +1,111 @@
 import "./profileEdit.css";
-import { Input } from "../../components/input";
-import { Button } from "../../components/button";
 import profileEditHtml from "./profileEdit.tmpl";
 import { Block } from "../../utils/block";
-import { Link } from "../../components/link";
-import { Header } from "../../components/header/header";
-import { Avatar } from "../../components/avatar";
-import type { AllFormData } from "../../types";
-import { checkEmailValidaty, checkLoginValidaty, checkNameValidaty, checkPhoneValidaty } from "../../utils/formValidation/formValidation";
+import {
+    formValidation, validationRules
+} from "../../utils/formValidation/formValidation";
+import connect from "../../utils/store/connect";
+import Form from "../../components/form/form";
+import UserProfileController from "../../controller/userProfileController";
+import Avatar from "../../components/avatar/avatar";
+import Router from "../../route/Router";
 
-type ProfileEditProps = {
-    errorMail: string;
-    errorLogin: string;
-    errorSecondName: string;
-    errorFirstName: string;
-    errorPhone: string;
-    errorDisplayName: string;
-    formData: AllFormData;
-} & Record<string, unknown>
+const validate = formValidation(validationRules);
+const userProfileController = new UserProfileController();
 
-export class ProfileEdit extends Block<ProfileEditProps> {
+const router = new Router('#root');
+
+function mapStateToProps(state: Indexed): Indexed {
+    const user = (state as State).auth.user != null ? (state as State).auth.user : {};
+
+    const inputGroupList: InputGroupSettings[] = [
+        {
+            text: 'Имя в сети',
+            type: 'text',
+            name: 'display_name',
+            placeholder: 'Введите имя в сети',
+            onBlur: () => {},
+            onChange: () => {},
+            value: user != null && user.display_name || '',
+            error: ''
+        },
+        {
+            text: 'Почта',
+            type: 'text',
+            name: 'email',
+            placeholder: 'Введите email',
+            onBlur: () => {},
+            onChange: () => {},
+            value: user != null && user.email || '',
+            error: ''
+        },
+        {
+            text: 'Логин',
+            type: 'text',
+            name: 'login',
+            placeholder: 'Введите логин',
+            onBlur: () => {},
+            onChange: () => {},
+            value: user != null && user.login || '',
+            error: ''
+        },
+        {
+            text: 'Имя',
+            type: 'text',
+            name: 'first_name',
+            placeholder: 'Введите имя',
+            onBlur: () => {},
+            onChange: () => {},
+            value: user != null && user.first_name || '',
+            error: ''
+        },
+        {
+            text: 'Фамилия',
+            type: 'text',
+            name: 'second_name',
+            placeholder: 'Введите фамилию',
+            onBlur: () => {},
+            onChange: () => {},
+            value: user != null && user.second_name || '',
+            error: ''
+        },
+        {
+            text: 'Телефон',
+            type: 'tel',
+            name: 'phone',
+            placeholder: 'Введите телефон',
+            onBlur: () => {},
+            onChange: () => {},
+            value: user != null && user.phone || '',
+            error: ''
+        },
+    ];
+    return { inputGroupList }
+}
+const connectedForm = connect(Form, mapStateToProps);
+
+export default class ProfileEdit extends Block {
     constructor() {
         super({
-            avatar: new Avatar({
-                changeAva: true
-            }),
-            header: new Header({
-              title: "Изменение данных"
-            }),
-            mailInput: new Input({
-                name: "email",
-                text: "Почта",
-                required: true,
-                value: "test@yandex.ru",
-                className: "input-type",
-                type: "email",
-                validationType: "email",
-                onBlur: (event: Event) => {
-                    const email = (event.target as HTMLInputElement).value;
-                    this.validateField('errorMail', email, checkEmailValidaty);
-                  },
-                  onChange: (event: Event) => {
-                    const email = (event.target as HTMLInputElement).value;
-          
-                    this.setProps({
-                      formData: {
-                        ...this.props.formData,
-                        email: email,
-                      },
-                    });
-          
-                    this.validateField('errorMail', email, checkEmailValidaty);
-                  },
-            }),
-            loginInput: new Input({
-                name: "login",
-                text: "Логин",
-                required: true,
-                className: "input-type",
-                value: "testtestovich",
-                validationType: "login",
-                onBlur: (event: Event) => {
-                    const login = (event.target as HTMLInputElement).value;
-                    this.validateField('errorLogin', login, checkLoginValidaty);
-                  },
-                  onChange: (event: Event) => {
-                    const login = (event.target as HTMLInputElement).value;
-          
-                    this.setProps({
-                      formData: {
-                        ...this.props.formData,
-                        login: login,
-                      },
-                    });
-          
-                    this.validateField('errorLogin', login, checkLoginValidaty);
-                  },
-            }),
-            firstNameInput: new Input({
-                name: "first_name",
-                text: "Имя",
-                required: true,
-                value: "Тест",
-                validationType: "name",
-                className: "input-type",
-                onBlur: (event: Event) => {
-                  const firstName = (event.target as HTMLInputElement).value;
-                  this.validateField('errorFirstName', firstName, checkNameValidaty);
+            Form: new connectedForm({
+                inputGroupList: [],
+                header: 'Изменение данных',
+                validate,
+                btnTitle: 'Сохранить',
+                linkTitle: 'Назад',
+                link: '/settings',
+                onClickLink: (e: any) => {
+                    e.preventDefault();
+                    router.back()
                 },
-                onChange: (event: Event) => {
-                  const firstName = (event.target as HTMLInputElement).value;
-        
-                  this.setProps({
-                    formData: {
-                      ...this.props.formData,
-                      firstName: firstName,
-                    },
-                  });
-        
-                  this.validateField('errorFirstName', firstName, checkNameValidaty);
-                },
+                showButton: true,
+                controller: userProfileController,
+                avatar: new Avatar({}),
             }),
-            secondNameInput: new Input({
-                name: "second_name",
-                text: "Фамилия",
-                className: "input-type",
-                validationType: "name",
-                value: "Тестович",
-                onBlur: (event: Event) => {
-                    const secondName = (event.target as HTMLInputElement).value;
-                    this.validateField('errorFirstName', secondName, checkNameValidaty);
-                  },
-                  onChange: (event: Event) => {
-                    const secondName = (event.target as HTMLInputElement).value;
-          
-                    this.setProps({
-                      formData: {
-                        ...this.props.formData,
-                        secondName: secondName,
-                      },
-                    });
-          
-                    this.validateField('errorFirstName', secondName, checkNameValidaty);
-                  },
-            }),
-            phoneInput: new Input({
-                name: "phone",
-                text: "Телефон",
-                value: "+7 (999) 999 99 99",
-                type: "tel",
-                className: "input-type",
-                validationType: "phone",
-                required: true,
-                onBlur: (event: Event) => {
-                    const phone = (event.target as HTMLInputElement).value;
-                    this.validateField('errorPhone', phone, checkPhoneValidaty);
-                  },
-                  onChange: (event: Event) => {
-                    const phone = (event.target as HTMLInputElement).value;
-          
-                    this.setProps({
-                      formData: {
-                        ...this.props.formData,
-                        phone: phone,
-                      },
-                    });
-          
-                    this.validateField('errorPhone', phone, checkPhoneValidaty);
-                  },
-            }),
-            displayNameInput: new Input({
-                name: "display_name",
-                text: "Имя в чате",
-                value: "Тестович",
-                className: "input-type",
-                validationType: "display_name",
-                required: true,
-                onBlur: (event: Event) => {
-                    const displayName = (event.target as HTMLInputElement).value;
-                    this.validateField('errorDisplayName', displayName, checkNameValidaty);
-                  },
-                  onChange: (event: Event) => {
-                    const displayName = (event.target as HTMLInputElement).value;
-          
-                    this.setProps({
-                      formData: {
-                        ...this.props.formData,
-                        displayName: displayName,
-                      },
-                    });
-          
-                    this.validateField('errorDisplayName', displayName, checkNameValidaty);
-                  },
-            }),
-            button: new Button({
-                label: "Сохранить",
-                type: "submit",
-                onClick: (event: Event) => {
-                    event.preventDefault();
-        
-                    this.validateField('errorLogin', this.props.formData.login, checkLoginValidaty);
-                    this.validateField('errorFirstName', this.props.formData.firstName, checkNameValidaty);
-                    this.validateField('errorDisplayName', this.props.formData.displayName, checkNameValidaty);
-                    this.validateField('errorMail', this.props.formData.email, checkEmailValidaty);
-                    this.validateField('errorSecondName', this.props.formData.secondName, checkNameValidaty);
-                    this.validateField('errorPhone', this.props.formData.phone, checkPhoneValidaty);
-
-                    console.log(this.props.formData); // eslint-disable-line no-console
-                }
-            }),
-            link: new Link({
-                href: "/profile",
-                text: "Назад"
-            }),
-            errorMail: '',
-            errorLogin: '',
-            errorSecondName: '',
-            errorFirstName: '',
-            errorPhone: '',
-            errorDisplayName: '',
-            formData: {
-              email: '',
-              login: '',
-              displayName: '',
-              firstName: '',
-              secondName: '',
-              phone: ''
-            },
         })
     }
 
-    validateField(field: string, value: string, validator: (value: string) => { errorMessage: string | null }): void {
-        this.setProps({
-          [field]: validator(value).errorMessage ?? '',
-        });
-    }
-
-    override  render(): string {
+    public  render(): string {
         return profileEditHtml;
     }
 }
