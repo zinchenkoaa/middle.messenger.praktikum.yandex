@@ -40,7 +40,6 @@ const createItemCallback =  (prop: ChatItemSettings) => {
                 store.set('currentChat', { id: prop.id, title: prop.title });
                 chatsController.getChatUsers(prop.id)
                 messagesController.start();
-                console.log('store', store.getState())
             }
         })
 }

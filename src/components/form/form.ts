@@ -7,7 +7,7 @@ import formTmpl from "./form.tmpl";
 import InputGroup from "../inputGroup/inputGroup";
 import {Link} from "../link";
 
-type FormSettings = {
+interface FormSettings {
     header: string;
     title: string;
     btnTitle?: string;
@@ -92,12 +92,12 @@ class Form extends Block {
             ...props,
             inputGroupList,
             button: new Button({
-                label: props.btnTitle || '',
+                label: props.btnTitle ?? '',
                 onClick: onSubmit,
             }),
-            showButton: props.showButton || false,
+            showButton: props.showButton ?? false,
             link: new Link({
-                text: props.linkTitle || '',
+                text: props.linkTitle ?? '',
                 onClick: props.onClickLink,
             }),
         });

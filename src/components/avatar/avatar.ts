@@ -14,7 +14,6 @@ class Avatar extends Block {
     }
 
     protected triggerFileInput = (): void  =>{
-        console.log('trigger')
         const fileInput = this.element?.querySelector('input[type="file"]');
         if (fileInput) {
             (fileInput as HTMLInputElement).click(); // Открываем окно выбора файла

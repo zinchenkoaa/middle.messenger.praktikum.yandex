@@ -1,7 +1,7 @@
 
 import store from "./store";
 import { StoreEvents } from "./store";
-import {Block} from "../block";
+import { Block } from "../block";
 
 interface BlockProps {
     [key: string]: unknown;

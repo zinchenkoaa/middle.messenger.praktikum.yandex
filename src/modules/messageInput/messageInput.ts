@@ -30,8 +30,6 @@ export class MessageInput extends Block {
     constructor(props: Indexed) {
         const controller = props.controller as MessageControllerInterface;
 
-        console.log(props.controller);
-
         const getMessage = () => {
             const inputElement = this.children.input.element as HTMLInputElement;
             return inputElement ? inputElement.value : '';

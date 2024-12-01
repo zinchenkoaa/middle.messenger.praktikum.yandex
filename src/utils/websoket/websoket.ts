@@ -41,7 +41,6 @@ export default class WebSocketTransport extends EventBus {
     }
 
     private onOpen(): void {
-        console.log('WebSocket connection opened');
         this.reconnectAttempts = 0;
         this.startPing();
         this.emit(WebSocketEvents.OPEN);
@@ -73,7 +72,6 @@ export default class WebSocketTransport extends EventBus {
     }
 
     private onClose(): void {
-        console.log('WebSocket connection closed');
         this.stopPing();
         this.emit(WebSocketEvents.CLOSE);
 
@@ -94,7 +92,7 @@ export default class WebSocketTransport extends EventBus {
             this.pingTimer = setInterval(() => {
                 if (this.socket && this.socket.readyState === WebSocket.OPEN) {
                     const pingMessage = JSON.stringify({ type: 'ping' });
-                    //console.log('Sending ping:', pingMessage);
+
                     this.socket.send(pingMessage);
                     this.emit('ping');
                 }
@@ -111,7 +109,6 @@ export default class WebSocketTransport extends EventBus {
 
     private reconnect(): void {
         this.reconnectAttempts += 1;
-        //console.log(`Attempting to reconnect... (${this.reconnectAttempts})`);
 
         setTimeout(() => {
             this.connect();
@@ -119,10 +116,8 @@ export default class WebSocketTransport extends EventBus {
     }
 
     send(data: string): void {
-        console.log('WebSocket readyState:', this.socket?.readyState);
 
         if (this.socket && this.socket.readyState === WebSocket.OPEN) {
-            console.log('data', data)
             this.socket.send(data);
         } else {
             console.error('WebSocket is not open. Cannot send message');

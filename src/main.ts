@@ -23,7 +23,6 @@ export default class Main {
                     const authApi = new AuthApi();
                     const userResponse = await authApi.getUser();
                     if (userResponse.status === 200) {
-                        console.log('store', store.getState())
                         store.set('auth.user', JSON.parse(userResponse.response));
                         router.go(goTo);
                         return false;
@@ -44,7 +43,6 @@ export default class Main {
                     const authApi = new AuthApi();
                     const userResponse = await authApi.getUser();
                     if (userResponse.status === 200) {
-                        console.log('store', store.getState())
                         store.set('auth.user', JSON.parse(userResponse.response));
                         return true;
                     }

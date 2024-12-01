@@ -61,7 +61,6 @@ function mapUserToProps(state: State):Indexed {
 }
 
 const createItemCallback =  (prop:Indexed) => {
-    console.log(prop)
     return new MessageBubble(prop)
 }
 const listUpdateProps = {
