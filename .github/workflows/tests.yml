@@ -11,9 +11,10 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
     env:
+      SPRINT: ${{github.event.inputs.branch}}
       TERM: xterm-256color
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: [16.x]
@@ -27,10 +28,6 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
-
-    - name: Debug branch info
-      run: echo "Running tests for branch: ${{ github.event.inputs.branch || github.head_ref }}"
-
     - name: Install testing libs
       uses: mig4/setup-bats@v1
 
