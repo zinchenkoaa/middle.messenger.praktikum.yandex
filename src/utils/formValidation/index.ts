@@ -1,6 +1,6 @@
-import { validationRules, formValidation } from "./formValidation";
+import { checkAllForm, formValidation } from "./formValidation";
 
 export {
     formValidation,
-    validationRules
+    checkAllForm
 };

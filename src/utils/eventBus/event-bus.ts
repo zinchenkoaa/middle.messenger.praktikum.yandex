@@ -1,5 +1,3 @@
-export type EventCallback = (...args: any[]) => void;
-
 export class EventBus {
     listeners: { [key: string]: any[] };
 
@@ -40,9 +38,9 @@ export class EventBus {
     once(event: string, callback: any): void {
         const wrapper = (...args: any[]): void => {
             callback(...args);
-            this.off(event, wrapper);
+            this.off(event, wrapper); 
         };
-
+        
         this.on(event, wrapper);
     }
 }

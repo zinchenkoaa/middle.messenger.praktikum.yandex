@@ -2,7 +2,12 @@ import "./error.css";
 import errorHtml from "./error.tmpl";
 import { Block } from "../../utils/block";
 
-export class Err extends Block {
+type ErrorProps = {
+    errorCode: string;
+    errorText: string;
+} & Record<string, unknown>
+
+export class Err extends Block<ErrorProps> {
      render(): string {
         return errorHtml
      }

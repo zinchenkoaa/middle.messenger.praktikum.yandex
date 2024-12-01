@@ -1,18 +1,27 @@
 import buttonHtml from "./button.tmpl";
+import type { Props } from "../../types";
 import { Block } from "../../utils/block";
 import "./button.css";
 
-export class Button extends Block {
-    constructor(props: ButtonSettings) {
+interface ButtonProps extends Props {
+    onClick?: (e: Event) => void,
+}
+  
+export class Button extends Block<ButtonProps> {
+    constructor(props: ButtonProps) {
         super({
-            ...props,
+            ...props,      
             events: {
-                click: props.onClick
+                click: (e: Event) => {
+                    if (props.onClick) { 
+                      props.onClick(e);
+                    }
+                  },
             },
         });
     }
 
-    public render(): string {
+    override render(): string {
         return buttonHtml;
     }
 }
