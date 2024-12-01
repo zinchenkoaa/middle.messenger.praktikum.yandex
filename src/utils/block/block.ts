@@ -1,6 +1,6 @@
 import { EventBus } from "../eventBus";
 import Handlebars from 'handlebars';
-import {EventCallback} from "../eventBus/event-bus";
+import { EventCallback } from "../eventBus/event-bus";
 
 interface BlockProps {
     [key: string]: any;
@@ -91,10 +91,8 @@ export class Block {
 
         // Object.values(this.lists).forEach((list) => {
         //   list.forEach((item) => {
-        //     console.log('item',item)
         //     if (item instanceof Block) {
         //       item.render()
-        //       console.log('item getcont',item.getContent());
         //     }
         //   })
         // })
@@ -224,7 +222,6 @@ export class Block {
     }
 
     private _makePropsProxy(props: BlockProps): BlockProps {
-        // eslint-disable-next-line @typescript-eslint/no-this-alias
         const self = this;
 
         return new Proxy(props, {

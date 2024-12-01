@@ -36,14 +36,14 @@ export default class Router {
         Router.__instance = this;
     }
 
-    use(pathname:string, block: BlockConstructor, middleware?: Middleware) {
+    use(pathname:string, block: BlockConstructor, middleware?: Middleware): this {
         const route = new Route(pathname, block, {rootQuery: this._rootQuery});
         this.routes.push({ route, middleware});
         return this;
     }
 
     start() {
-        window.onpopstate = (event: PopStateEvent) => {
+        window.onpopstate = (event: PopStateEvent): void => {
             const target = event.currentTarget as Window;
             this._onRoute(target.location.pathname); // Обработка текущего маршрута
         };
@@ -52,7 +52,7 @@ export default class Router {
         this._onRoute(window.location.pathname);
     }
 
-    async _onRoute(pathname: string) {
+    async _onRoute(pathname: string): Promise<void> {
         const routeData = this.getRoute(pathname);
 
         if (!routeData) {
@@ -96,19 +96,19 @@ export default class Router {
         }
     }
 
-    go(pathname: string) {
+    go(pathname: string): void {
         if (this.history) {
             this.history.pushState({}, '', pathname);
         }
         this._onRoute(pathname);
     }
 
-    back() {
+    back(): void {
             this.history.back();
             this._onRoute(window.location.pathname); // Перерендер маршрута
     }
 
-    forward() {
+    forward(): void {
         if (this.history) {
             this.history.forward();
         }
@@ -119,7 +119,7 @@ export default class Router {
         return this.routes.find(({route}) => route.match(pathname));
     }
 
-    getCurrentPath() {
+    getCurrentPath(): string | undefined {
         if (this._currentRoute !== null) {
             return this._currentRoute.getPathname();
         }

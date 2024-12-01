@@ -1,6 +1,6 @@
 import { expect, use } from 'chai';
 import sinonChai from 'sinon-chai';
-import { stub, spy, SinonSpy } from 'sinon';
+import { SinonSpy, spy, stub } from 'sinon';
 import {Block} from "./block";
 
 class BlockStub extends Block {
@@ -60,14 +60,12 @@ describe('Block', () => {
         block = new BlockStub(initialProps);
 
         block.setProps({ prop1: 'changed' });
-        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
         expect(renderStub.calledTwice).to.be.true;
     });
 
     it('should call render on initialization', () => {
         const initialProps = { prop1: 'initial' };
         block = new BlockStub(initialProps);
-        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
         expect(renderStub.calledOnce).to.be.true;
     });
 
